@@ -2,21 +2,21 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->group(function() {
+
+    Route::get('/dashboard',[\App\Http\Controllers\DashboardController::class,'index'])->name('dashboard');
+
+    Route::get('/data-pelanggan',[\App\Http\Controllers\DataPelanggan::class, 'index'])->name('data-pelanggan');
+    Route::get('/data-pelanggan/tambah',[\App\Http\Controllers\DataPelanggan::class, 'create'])->name('tambah-data-pelanggan');
+    Route::post('/data-pelanggan/store',[\App\Http\Controllers\DataPelanggan::class, 'store'])->name('submit-data-pelanggan');
+    Route::get('/data-pelanggan/edit/{id}',[\App\Http\Controllers\DataPelanggan::class, 'edit'])->name('edit-data-pelanggan');
+    Route::put('/data-pelanggan/update/{id}',[\App\Http\Controllers\DataPelanggan::class, 'update'])->name('update-data-pelanggan');
+    Route::delete('/data-pelanggan/delete/{id}',[\App\Http\Controllers\DataPelanggan::class, 'destroy'])->name('delete-data-pelanggan');
+    
+
+});
+
