@@ -28,7 +28,7 @@
 <div class="padding">
     <div class="margin">
         <h5 class="m-b-0 _300">Hi {{ ucfirst(Auth::user()->name) }}, welcome back</h5>
-        <small class="text-muted">Awesome uikit for your next project</small>
+        <small class="text-muted">Bring your best service!</small>
     </div>
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
@@ -77,7 +77,7 @@
                       </div>
                       <div class="clear">
                         <div class="text-muted">Booking di Tempat</div>
-                        <h4 class="m-a-0 text-md _600"><a href>0</a></h4>
+                        <h4 class="m-a-0 text-md _600"><a href="{{ url('/data-booking') }}" style="cursor: pointer;">{{ $data['jumlah_booking_di_tempat'] }}</a></h4>
                       </div>
                     </div>
                 </div>
@@ -86,7 +86,6 @@
             <div class="box">
                 <div class="box-header">
                     <h3>Antrian</h3>
-                    <small>20 selesai, 5 tersisa</small>
                 </div>
                 <div class="box-tool">
                     <ul class="nav">

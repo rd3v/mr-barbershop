@@ -4,26 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\DataBookingTempat;
-use App\Models\User;
-
-class DashboardController extends Controller
+class DatalaporanController extends Controller
 {
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $jumlah_user = User::where('level', 'pelanggan')->count();
-        $jumlah_booking_di_tempat = DataBookingTempat::count();
-
-        $data = [
-            'jumlah_user' => $jumlah_user,
-            'jumlah_booking_di_tempat' => $jumlah_booking_di_tempat
-        ];
-        return view('admin.dashboard', ['data' => $data]);
-    }
-
-    public function profile() {
-        return view('admin.profile');
+        return view('admin.data_laporan.index');
     }
 
     /**

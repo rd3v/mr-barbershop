@@ -14,7 +14,8 @@ class DatainformasiController extends Controller
      */
     public function index()
     {
-        //
+        $data = DataInformasi::orderBy('id','desc')->get();
+        return view('admin.data_informasi.index', ['data' => $data]);
     }
 
     /**
@@ -24,7 +25,7 @@ class DatainformasiController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.data_informasi.add');
     }
 
     /**

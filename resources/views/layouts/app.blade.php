@@ -8,6 +8,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}">  
 
+  <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+
   <!-- for ios 7 style, multi-resolution icon of 152x152 -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
@@ -175,7 +177,7 @@
                     <i class="on b-white bottom"></i>
                   </span>
                 </a>
-                <div class="dropdown-menu pull-right dropdown-menu-scale"><a class="dropdown-item" ui-sref="app.inbox.list"><span>Inbox</span> <span class="label warn m-l-xs">3</span></a> <a class="dropdown-item" ui-sref="app.page.profile"><span>Profile</span></a> <a class="dropdown-item" ui-sref="app.page.setting"><span>Settings</span> <span class="label primary m-l-xs">3/9</span></a><div class="dropdown-divider"></div><a class="dropdown-item" ui-sref="app.docs">Need help?</a> 
+                <div class="dropdown-menu pull-right dropdown-menu-scale"><a class="dropdown-item" ui-sref="app.inbox.list"><span>Inbox</span> <span class="label warn m-l-xs">3</span></a> <a class="dropdown-item" href="{{ url('my-profile') }}"><span>Profile</span></a> <a class="dropdown-item" ui-sref="app.page.setting"><span>Settings</span> <span class="label primary m-l-xs">3/9</span></a><div class="dropdown-divider"></div><a class="dropdown-item" ui-sref="app.docs">Need help?</a> 
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 

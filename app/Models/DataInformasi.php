@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class DataInformasi extends Model
 {
     use HasFactory;
+
+    protected $table = 'data_informasi';
+
+    protected $fillable = [
+        'id'
+    ];
+
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
 }
