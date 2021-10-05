@@ -56,6 +56,17 @@
                   <span class="nav-text">Dashboard</span>
                 </a>
               </li>
+
+              <li id="data-kapster">
+                <a href="{{ url('/data-kapster') }}" >
+                  <span class="nav-icon">
+                    <i class="material-icons">&#xe7ef;
+                      <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span>
+                    </i>
+                  </span>
+                  <span class="nav-text">Data Kapster</span>
+                </a>
+              </li>              
           
               <li id="data-pelanggan">
                 <a href="{{ url('/data-pelanggan') }}">
@@ -111,18 +122,7 @@
                   <span class="nav-text">Laporan</span>
                 </a>
               </li>
-          
-              <li id="data-kapster">
-                <a href="{{ url('/data-kapster') }}" >
-                  <span class="nav-icon">
-                    <i class="material-icons">&#xe7ef;
-                      <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span>
-                    </i>
-                  </span>
-                  <span class="nav-text">Data Kapster</span>
-                </a>
-              </li>
-          
+                    
             </ul>
         </nav>
       </div>

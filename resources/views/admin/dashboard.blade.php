@@ -40,7 +40,7 @@
                       </div>
                       <div class="clear">
                         <div class="text-muted">Pelanggan</div>
-                        <h4 class="m-a-0 text-md _600"><a href>0</a></h4>
+                        <h4 class="m-a-0 text-md _600"><a href="{{ url('/data-pelanggan') }}" style="cursor: pointer;">{{ $data['jumlah_user'] }}</a></h4>
                       </div>
                     </div>
                 </div>

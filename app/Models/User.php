@@ -10,6 +10,9 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -25,6 +28,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
     ];
@@ -56,6 +60,23 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends = [
-        'profile_photo_url',
+        'foto',
     ];
+
+    public function save_image_kapster($file) {
+        
+    // $realname = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)); realname
+        $md5Name = Str::slug(md5_file($file->getRealPath())); // convert to md5 name
+        
+        $extension = $file->getClientOriginalExtension();
+        $new_name =  $md5Name. "-" . time() . "." . $extension;
+        $file->move(public_path('assets/img/kapster'), $new_name);
+                
+        return $new_name;
+    }
+
+    public function delete_image_kapster($path,$file) {
+        return File::delete($path.$file);
+    }
+
 }
