@@ -12,7 +12,7 @@ class DataInformasi extends Model
     protected $table = 'data_informasi';
 
     protected $fillable = [
-        'id'
+        'id', 'text'
     ];
 
     protected $hidden = [

@@ -34,7 +34,12 @@
   <div class="box">
     <div class="box-header">
       <h2 style="display:inline"><b>Data Informasi</b></h2>
-      <a href="{{ url('/data-informasi/tambah') }}" class="btn btn-success btn-md" style="color: white;float: right">+Tambah</a>
+
+      @php
+      $tambah_url = url('/data-informasi/tambah');
+      echo (count($data) == 3 ? '':"<a href=\"$tambah_url\" class=\"btn btn-success btn-md\" style=\"color: white;float: right\">+Tambah</a>") 
+      @endphp
+
     </div>
     <br>
     <div class="table-responsive">
@@ -62,7 +67,8 @@
         <thead>
           <tr>
             <th>No</th>
-            <th>Aksi</th>
+            <th>Teks</th>
+            <th>#</th>
           </tr>
         </thead>
         <?php
@@ -73,11 +79,10 @@
             @foreach($data as $key => $value)
               <tr>
                 <td>{{ ($key+1) }}</td>
-                <td>{{ ucwords($value->jenis_layanan) }}</td>
-                <td>Rp{{ number_format($value->harga_layanan) }}</td>
+                <td>{{ ucwords($value->text) }}</td>
                 <td>
-                  <a href="{{ route('edit-data-layanan',['id' => $value->id]) }}" class="btn btn-primary btn-sm" title="Edit Layanan" data-id="{{ $value->id }}"><i class="fa fa-edit"></i></a>
-                  <button class="btn btn-danger btn-sm btn-hapus" title="Hapus" data-jenis_layanan="{{ $value->jenis_layanan }}" data-id="{{ $value->id }}"><i class="fa fa-trash"></i></button>
+                  <a href="{{ route('edit-data-informasi',['id' => $value->id]) }}" class="btn btn-primary btn-sm" title="Edit Informasi" data-id="{{ $value->id }}"><i class="fa fa-edit"></i></a>
+                  <button class="btn btn-danger btn-sm btn-hapus" title="Hapus" data-text="{{ $value->text }}" data-id="{{ $value->id }}"><i class="fa fa-trash"></i></button>
                 </td>
               </tr>
             @endforeach
@@ -175,8 +180,8 @@ var MODULE_CONFIG = {
   $(".btn-hapus").click(function() {
 
     var id = $(this).data('id');
-    var jenis_layanan = $(this).data('jenis_layanan');
-    if(!confirm('Hapus Informasi ' + jenis_layanan)) return false;
+    var text = $(this).data('text');
+    if(!confirm('Hapus Informasi ' + text)) return false;
 
       $('#hapus_form').attr('action', "/data-informasi/delete/" + id).submit();
 

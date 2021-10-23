@@ -14,7 +14,7 @@ class DatainformasiController extends Controller
      */
     public function index()
     {
-        $data = DataInformasi::orderBy('id','desc')->get();
+        $data = DataInformasi::get();
         return view('admin.data_informasi.index', ['data' => $data]);
     }
 
@@ -36,7 +36,26 @@ class DatainformasiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'text' => 'required',
+        ]);
+
+        $data_informasi = DataInformasi::count();
+        if ($data_informasi == 3) {
+            $message = "Informasi sudah ada 3 data";
+            return back()->with(['warning' => $message]);
+        }
+
+        $data_informasi = new DataInformasi;
+        $data_informasi->text = $request->text;
+        
+        if ($data_informasi->save()) {
+            $message = "Layanan ".ucwords($request->text)." telah di tambahkan!";
+            return redirect('/data-informasi')->with(['success' => $message]);
+         } else {
+            $message = "Gagal menambahkan data informasi";
+            return back()->with(['errors' => $message]);
+         }
     }
 
     /**
@@ -56,9 +75,10 @@ class DatainformasiController extends Controller
      * @param  \App\Models\DataInformasi  $dataInformasi
      * @return \Illuminate\Http\Response
      */
-    public function edit(DataInformasi $dataInformasi)
+    public function edit($id)
     {
-        //
+        $data_informasi = DataInformasi::find($id);
+        return view('admin.data_informasi.edit', ['data' => $data_informasi]);
     }
 
     /**
@@ -68,9 +88,19 @@ class DatainformasiController extends Controller
      * @param  \App\Models\DataInformasi  $dataInformasi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DataInformasi $dataInformasi)
+    public function update(Request $request, $id)
     {
-        //
+        $data_informasi = DataInformasi::find($id);
+        $before_text = $data_informasi->text;
+        $data_informasi->text = $request->text;
+
+        if ($data_informasi->save()) {
+            $message = "Informasi ".ucwords($request->text)." telah di update!";
+            return redirect('/data-informasi')->with(['update' => $message]);            
+        } else {
+            $message = "Gagal mengupdate informasi";
+            return back()->with(['errors' => $message]);            
+        }
     }
 
     /**
@@ -79,8 +109,10 @@ class DatainformasiController extends Controller
      * @param  \App\Models\DataInformasi  $dataInformasi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DataInformasi $dataInformasi)
+    public function destroy($id)
     {
-        //
+        $data_informasi = DataInformasi::find($id);
+        $data_informasi->delete();
+        return back();
     }
 }

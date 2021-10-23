@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-  Data Layanan | Edit
+  Data Informasi | Edit
 @endsection
 
 @section('css')
@@ -33,33 +33,27 @@
 
   <div class="box">
     <div class="box-header">
-      <h2 style="display:inline"><b>Edit Data Layanan</b></h2>
+      <h2 style="display:inline"><b>Edit Data Informasi</b></h2>
     </div>
 
 
 <div class="box-divider m-a-0"></div>
         <div class="box-body">
-          <form role="form" action="{{ route('update-data-layanan',['id' => $data->id]) }}" method="post">
+          <form role="form" action="{{ route('update-data-informasi',['id' => $data->id]) }}" method="post">
             @csrf
             @method('PUT')
-            <div class="form-group row">
-              <label for="jenis_layanan" class="col-sm-2 form-control-label">Jenis Layanan</label>
-              <div class="col-sm-10">
-                <input type="text" name="jenis_layanan" class="form-control" id="jenis_layanan" placeholder="Masukkan Jenis Layanan" required="" value="{{ $data->jenis_layanan }}">
-              </div>
-            </div>
 
             <div class="form-group row">
-              <label for="harga_layanan" class="col-sm-2 form-control-label">Harga Layanan</label>
+              <label for="text" class="col-sm-2 form-control-label">Teks</label>
               <div class="col-sm-10">
-                <input type="text" name="harga_layanan" class="form-control" id="harga_layanan" placeholder="Masukkan Harga Layanan" required value="{{ $data->harga_layanan }}">
+                <input type="text" name="text" class="form-control" id="text" placeholder="Masukkan Text" required="" value="{{ $data->text }}">
               </div>
             </div>
 
             <div class="form-group row m-t-md">
               <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn primary">Update</button>
-                <a href="{{ url('/data-layanan') }}" type="button" class="btn danger">Batal</a>
+                <a href="{{ url('/data-informasi') }}" type="button" class="btn danger">Batal</a>
               </div>
             </div>
           </form>
@@ -121,6 +115,6 @@
 
 @section('script')
 <script>
-  $("li#data-layanan").addClass('active');
+  $("li#data-informasi").addClass('active');
 </script>
 @endsection

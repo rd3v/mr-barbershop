@@ -43,9 +43,9 @@
             @csrf
 
             <div class="form-group row">
-              <label for="jenis_layanan" class="col-sm-2 form-control-label">Informasi</label>
+              <label for="jenis_layanan" class="col-sm-2 form-control-label">Teks</label>
               <div class="col-sm-10">
-                <input type="text" name="informasi" class="form-control" id="jenis_layanan" placeholder="Masukkan Informasi" required="">
+                <input type="text" name="text" class="form-control" id="jenis_layanan" placeholder="Masukkan Informasi" required="">
               </div>
             </div>
 

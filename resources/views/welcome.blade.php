@@ -15,6 +15,103 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <style type="text/css">
+#carousel {
+position: relative;
+width:60%;
+margin:0 auto;
+}
+
+#slides {
+overflow: hidden;
+position: relative;
+width: 100%;
+height: 250px;
+}
+
+#slides ul {
+list-style: none;
+width:100%;
+height:250px;
+margin: 0;
+padding: 0;
+position: relative;
+}
+
+ #slides li {
+width:100%;
+height:250px;
+float:left;
+text-align: center;
+position: relative;
+font-family:lato, sans-serif;
+}
+/* Styling for prev and next buttons */
+.btn-bar{
+    max-width: 346px;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+    top: 40px;
+    width: 100%;
+}
+
+ #buttons {
+padding:0 0 5px 0;
+float:right;
+}
+
+#buttons a {
+text-align:center;
+display:block;
+font-size:50px;
+float:left;
+outline:0;
+margin:0 60px;
+color:#b14943;
+text-decoration:none;
+display:block;
+padding:9px;
+width:35px;
+}
+
+a#prev:hover, a#next:hover {
+color:#FFF;
+text-shadow:.5px 0px #b14943;  
+}
+
+.quote-phrase, .quote-author {
+font-family:sans-serif;
+font-weight:300;
+display: table-cell;
+vertical-align: middle;
+padding: 5px 20px;
+font-family:'Lato', Calibri, Arial, sans-serif;
+}
+
+.quote-phrase {
+height: 200px;
+font-size:24px;
+color:#FFF;
+font-style:italic;
+text-shadow:.5px 0px #b14943;  
+}
+
+.quote-marks {
+font-size:30px;
+padding:0 3px 3px;
+position:inherit;
+}
+
+.quote-author {
+font-style:normal;
+font-size:20px;
+color:#b14943;
+font-weight:400;
+height: 30px;
+}
+
+        </style>
     </head>
     <body id="page-top">
             <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -90,93 +187,43 @@
             <section class="page-section bg-dark" id="portfolio">
                 <div class="container">
                     <div class="text-center">
-                        <h2 class="section-heading text-uppercase text-white">Galeri</h2>
-                        <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                        <h2 class="section-heading text-uppercase text-white">Informasi</h2>
+                        <h3 class="section-subheading text-muted">Informasi terbaru Mr.Barber</h3>
                     </div>
                     <div class="row">
-                        <div class="col-lg-4 col-sm-6 mb-4">
-                            <div class="portfolio-item">
-                                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
-                                    <div class="portfolio-hover">
-                                        <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                    </div>
-                                    <img class="img-fluid" src="assets/img/portfolio/01-thumbnail.jpg" alt="" />
-                                </a>
-                                <div class="portfolio-caption">
-                                    <div class="portfolio-caption-heading">Threads</div>
-                                    <div class="portfolio-caption-subheading text-muted">Illustration</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 mb-4">
-                            <div class="portfolio-item">
-                                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
-                                    <div class="portfolio-hover">
-                                        <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                    </div>
-                                    <img class="img-fluid" src="assets/img/portfolio/02-thumbnail.jpg" alt="" />
-                                </a>
-                                <div class="portfolio-caption">
-                                    <div class="portfolio-caption-heading">Explore</div>
-                                    <div class="portfolio-caption-subheading text-muted">Graphic Design</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 mb-4">
-                            <div class="portfolio-item">
-                                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
-                                    <div class="portfolio-hover">
-                                        <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                    </div>
-                                    <img class="img-fluid" src="assets/img/portfolio/03-thumbnail.jpg" alt="" />
-                                </a>
-                                <div class="portfolio-caption">
-                                    <div class="portfolio-caption-heading">Finish</div>
-                                    <div class="portfolio-caption-subheading text-muted">Identity</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-                            <div class="portfolio-item">
-                                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal4">
-                                    <div class="portfolio-hover">
-                                        <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                    </div>
-                                    <img class="img-fluid" src="assets/img/portfolio/04-thumbnail.jpg" alt="" />
-                                </a>
-                                <div class="portfolio-caption">
-                                    <div class="portfolio-caption-heading">Lines</div>
-                                    <div class="portfolio-caption-subheading text-muted">Branding</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 mb-4 mb-sm-0">
-                            <div class="portfolio-item">
-                                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal5">
-                                    <div class="portfolio-hover">
-                                        <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                    </div>
-                                    <img class="img-fluid" src="assets/img/portfolio/05-thumbnail.jpg" alt="" />
-                                </a>
-                                <div class="portfolio-caption">
-                                    <div class="portfolio-caption-heading">Southwest</div>
-                                    <div class="portfolio-caption-subheading text-muted">Website Design</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="portfolio-item">
-                                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal6">
-                                    <div class="portfolio-hover">
-                                        <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                    </div>
-                                    <img class="img-fluid" src="assets/img/portfolio/06-thumbnail.jpg" alt="" />
-                                </a>
-                                <div class="portfolio-caption">
-                                    <div class="portfolio-caption-heading">Window</div>
-                                    <div class="portfolio-caption-subheading text-muted">Photography</div>
-                                </div>
-                            </div>
+                        <div class="col-lg-12 col-sm-12 mb-12">
+
+{{-- text slider --}}
+<div id="carousel">
+  <div class="btn-bar" style="display: none">
+    <div id="buttons"><a id="prev" href="#"><</a><a id="next" href="#">></a> </div>
+   </div>
+    <div id="slides">
+        <ul>
+            <li class="slide">
+                <div class="quoteContainer">
+                    <p class="quote-phrase"><span class="quote-marks">"</span>{{ $informasi[0]->text }}<class="quote-marks">"</span>
+                    </p>
+                </div>
+            </li>
+            <li class="slide">
+                <div class="quoteContainer">
+                    <p class="quote-phrase"><span class="quote-marks">"</span>{{ $informasi[1]->text }}<span class="quote-marks">"</span>
+
+                    </p>
+                </div>
+            </li>
+            <li class="slide">
+                <div class="quoteContainer">
+                    <p class="quote-phrase"><span class="quote-marks">"</span>{{ $informasi[2]->text }}<span class="quote-marks">"</span>
+
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+{{-- text slider --}}
+
                         </div>
                     </div>
                 </div>
@@ -543,7 +590,80 @@
             <script src="assets/mail/contact_me.js"></script>
             <!-- Core theme JS-->
             <script src="js/scripts.js"></script>
-            
+            <script src="//cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js" type="text
+/javascript"></script>
+    <script>
+$(document).ready(function () {
+    //rotation speed and timer
+    var speed = 5000;
     
+    var run = setInterval(rotate, speed);
+    var slides = $('.slide');
+    var container = $('#slides ul');
+    var elm = container.find(':first-child').prop("tagName");
+    var item_width = container.width();
+    var previous = 'prev'; //id of previous button
+    var next = 'next'; //id of next button
+    slides.width(item_width); //set the slides to the correct pixel width
+    container.parent().width(item_width);
+    container.width(slides.length * item_width); //set the slides container to the correct total width
+    container.find(elm + ':first').before(container.find(elm + ':last'));
+    resetSlides();
+    
+    
+    //if user clicked on prev button
+    
+    $('#buttons a').click(function (e) {
+        //slide the item
+        
+        if (container.is(':animated')) {
+            return false;
+        }
+        if (e.target.id == previous) {
+            container.stop().animate({
+                'left': 0
+            }, 1200, function () {
+                container.find(elm + ':first').before(container.find(elm + ':last'));
+                resetSlides();
+            });
+        }
+        
+        if (e.target.id == next) {
+            container.stop().animate({
+                'left': item_width * -2
+            }, 1200, function () {
+                container.find(elm + ':last').after(container.find(elm + ':first'));
+                resetSlides();
+            });
+        }
+        
+        //cancel the link behavior            
+        return false;
+        
+    });
+    
+    //if mouse hover, pause the auto rotation, otherwise rotate it    
+    container.parent().mouseenter(function () {
+        clearInterval(run);
+    }).mouseleave(function () {
+        run = setInterval(rotate, speed);
+    });
+    
+    
+    function resetSlides() {
+        //and adjust the container so current is in the frame
+        container.css({
+            'left': -1 * item_width
+        });
+    }
+    
+});
+//a simple function to click next link
+//a timer will call this function, and the rotation will begin
+
+function rotate() {
+    $('#next').click();
+}
+    </script>
     </body>
 </html>
