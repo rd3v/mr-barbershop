@@ -53,11 +53,18 @@
                 </div>
             @endif
 
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    <ul>
+                      <li>{{ session('error') }}</li>
+                    </ul>
+                </div>
+            @endif
 
             <div class="form-group row">
               <label for="foto" class="col-sm-2 form-control-label">Foto</label>
               <div class="col-sm-10">
-                <input type="file" name="foto" class="form-control" id="foto" required>
+                <input type="file" name="foto" class="form-control" id="foto">
                 <br>
                 <center>
                     <img src="{{ ('/assets/img/kapster/'.$data->foto) }}" alt="Gambar" id="image" width="25%">

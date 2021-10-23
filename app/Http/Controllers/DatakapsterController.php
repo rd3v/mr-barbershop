@@ -116,9 +116,14 @@ class DatakapsterController extends Controller
         $kapster = User::find($id);
         $kapster->name = $request->name;
         $kapster->username = $request->username;
-        $kapster->email = $request->email;
+        
+        if (User::where('email', $request->email)->count() != 1) {
+            $kapster->email = $request->email;
+        }
+
         $kapster->no_hp = $request->no_hp;
         $kapster->jenis_kelamin = $request->jenis_kelamin;
+        $kapster->alamat = $request->alamat;
 
         if ($request->has('foto')) {
             $foto = $request->foto;
