@@ -201,26 +201,25 @@ height: 30px;
    @if(count($informasi) > 0)
     <div id="slides">
         <ul>
-            <li class="slide">
-                <div class="quoteContainer">
-                    <p class="quote-phrase"><span class="quote-marks">"</span>{{ $informasi[0]->text }}<class="quote-marks">"</span>
-                    </p>
-                </div>
-            </li>
-            <li class="slide">
-                <div class="quoteContainer">
-                    <p class="quote-phrase"><span class="quote-marks">"</span>{{ $informasi[1]->text }}<span class="quote-marks">"</span>
-
-                    </p>
-                </div>
-            </li>
-            <li class="slide">
-                <div class="quoteContainer">
-                    <p class="quote-phrase"><span class="quote-marks">"</span>{{ $informasi[2]->text }}<span class="quote-marks">"</span>
-
-                    </p>
-                </div>
-            </li>
+            @if(count($informasi) > 1)
+                @foreach($informasi as $info)
+                    <li class="slide">
+                        <div class="quoteContainer">
+                            <p class="quote-phrase"><span class="quote-marks">"</span>{{ $info->text }}<class="quote-marks">"</span>
+                            </p>
+                        </div>
+                    </li>
+                @endforeach
+            @else
+                @for($i = 0; $i < 2; $i++)
+                    <li class="slide">
+                        <div class="quoteContainer">
+                            <p class="quote-phrase"><span class="quote-marks">"</span>{{ $informasi[0]->text }}<class="quote-marks">"</span>
+                            </p>
+                        </div>
+                    </li>
+                @endfor
+            @endif
         </ul>
     </div>
    @else
