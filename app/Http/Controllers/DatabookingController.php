@@ -130,17 +130,20 @@ class DatabookingController extends Controller
      */
     public function edit($booking, $id)
     {
+
+        $layanan = DataLayanan::select('id','jenis_layanan','harga_layanan')->get();        
         switch($booking) {
             case 'tempat':
-                $data_booking = DataBookingTempat::find($id);
+                $data_booking = DataBookingTempat::with('data_transaksi_layanan')->find($id);
                 $view = 'admin.data_booking.edit_booking_tempat';
             break;
             case 'rumah':
-                $data_booking = DataBookingRumah::find($id);
+                $data_booking = DataBookingRumah::with('data_transaksi_layanan')->find($id);
                 $view = 'admin.data_booking.edit_booking_rumah';
             break;
         }
-        return view($view, compact('data_booking'));
+
+        return view($view, compact('data_booking', 'layanan'));
     }
 
     /**
@@ -150,9 +153,61 @@ class DatabookingController extends Controller
      * @param  \App\Models\DataBooking  $dataBooking
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DataBooking $dataBooking)
+    public function update(Request $request, $id)
     {
-        //
+        switch($request->booking) {
+            case 'tempat':
+                $booking = DataBookingTempat::find($id);
+                if ($request->member == 1) {
+                    $booking->users_id = $request->users_id;
+
+                } else if($request->member == 0) {
+                    $booking->nama = $request->nama;
+                    $booking->no_hp = $request->no_hp;
+                    $booking->alamat = $request->alamat;
+                }
+
+                $booking->status = 0;
+                $booking->waktu_tunggu = date('H:i:s', strtotime('now'));
+                $booking->member = $request->member;
+
+                if ($booking->save()) {
+
+                    $DataTransaksiLayanan = DataTransaksiLayanan::where('booking_di_tempat_id', $id)->get();
+                    
+                    // check if layanan not match then drop and re-insert data 
+                    if (count($DataTransaksiLayanan) != count($request->layanan_id)) {
+
+                        for ($i=0; $i < count($DataTransaksiLayanan); $i++) { 
+                            $DataTransaksiLayanan[$i]->delete();
+                         } 
+
+                        $data_layanan_transaksi_data = [];
+                        for ($i=0; $i < count($request->layanan_id); $i++) { 
+                            $data_layanan_transaksi_data[] = [
+                                'booking_di_tempat_id' => $booking->id,
+                                'layanan_id' => $request->layanan_id[$i]
+                            ];
+                        }
+    
+                        DataTransaksiLayanan::insert($data_layanan_transaksi_data);
+                    }
+
+                    $message = "Booking di tempat atas nama ".ucwords($request->nama)." telah di update!";
+                    return redirect('/data-booking')->with(['success' => $message]);
+                 } else {
+                    $message = "Gagal mengupdate Booking di Tempat";
+                    return back()->with(['errors' => $message]);
+                 }
+
+            break;
+            case 'rumah':
+
+            break;
+            default:
+
+            break;
+        }        
     }
 
     /**

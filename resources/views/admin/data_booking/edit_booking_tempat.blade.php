@@ -37,22 +37,55 @@
     </div>
 
 
-<div class="box-divider m-a-0"></div>
+      <div class="box-divider m-a-0"></div>
         <div class="box-body">
           <form role="form" action="{{ route('update-data-booking',['id' => $data_booking->id]) }}" method="post">
             @csrf
             @method('PUT')
+
+            <input type="hidden" name="booking" value="tempat">
+
             <div class="form-group row">
-              <label for="jenis_layanan" class="col-sm-2 form-control-label">Jenis Layanan</label>
+              <label for="member" class="col-sm-2 form-control-label">Status Member</label>
               <div class="col-sm-10">
-                <input type="text" name="jenis_layanan" class="form-control" id="jenis_layanan" placeholder="Masukkan Jenis Layanan" required="" value="{{ $data_booking->id }}">
+                <select name="member" id="member" class="form-control" onchange="get_member(this.value)" disabled required>
+                  <option value="">== Pilih ==</option>
+                  <option value="1" <?= ($data_booking->member == 1 ? 'selected':'') ?>>Member</option>
+                  <option value="0" <?= ($data_booking->member == 0 ? 'selected':'') ?>>Non-Member</option>
+                </select>
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="harga_layanan" class="col-sm-2 form-control-label">Harga Layanan</label>
+              <label for="jenis_layanan" class="col-sm-2 form-control-label">Jenis Layanan</label>
               <div class="col-sm-10">
-                <input type="text" name="harga_layanan" class="form-control" id="harga_layanan" placeholder="Masukkan Harga Layanan" required value="{{ $data_booking->id }}">
+                  <small style="color: red">*abaikan jika tidak ada pengurangan atau penambahan layanan</small>
+                  <select name="layanan_id[]" id="layanan_id" class="form-control" multiple required>
+                    @foreach($layanan as $value)
+                      <option value="{{ $value->id }}">{{ $value->jenis_layanan }} (Rp{{ number_format($value->harga_layanan) }})</option>
+                    @endforeach                    
+                  </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="nama" class="col-sm-2 form-control-label">Nama</label>
+              <div class="col-sm-10">
+                <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama" value="{{ $data_booking->nama }}" required>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="no_hp" class="col-sm-2 form-control-label">No. HP</label>
+              <div class="col-sm-10">
+                <input type="number" name="no_hp" class="form-control" id="no_hp" value="{{ $data_booking->no_hp }}" placeholder="Masukkan Nomor HP">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="alamat" class="col-sm-2 form-control-label">Alamat</label>
+              <div class="col-sm-10">
+                <input type="text" name="alamat" class="form-control" id="alamat" value="{{ $data_booking->alamat }}" placeholder="Masukkan Alamat">
               </div>
             </div>
 
