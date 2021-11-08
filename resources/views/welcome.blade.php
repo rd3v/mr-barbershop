@@ -198,6 +198,7 @@ height: 30px;
   <div class="btn-bar" style="display: none">
     <div id="buttons"><a id="prev" href="#"><</a><a id="next" href="#">></a> </div>
    </div>
+   @if(count($informasi) > 0)
     <div id="slides">
         <ul>
             <li class="slide">
@@ -222,6 +223,11 @@ height: 30px;
             </li>
         </ul>
     </div>
+   @else
+    <div class="text-center" style="color: white">        
+        <h3 style="font-family: arial-black">Belum ada informasi terbaru!</h3>
+    </div>
+   @endif
 {{-- text slider --}}
 
                         </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DataBookingTempat;
 use App\Models\DataBookingRumah;
 use App\Models\DataLayanan;
+use App\Models\DataTransaksiLayanan;
 
 use Illuminate\Http\Request;
 
@@ -17,8 +18,9 @@ class DatabookingController extends Controller
      */
     public function index()
     {
-        $data_booking_rumah = DataBookingTempat::orderBy('id','desc')->get();
-        $data_booking_tempat = DataBookingRumah::orderBy('id','desc')->get();
+        $data_booking_tempat = DataBookingTempat::with('data_transaksi_layanan')->orderBy('id','desc')->get();
+        $data_booking_rumah = DataBookingRumah::orderBy('id','desc')->get();
+
         return view('admin.data_booking.index', [
             'data' => [
                 'booking_rumah' => $data_booking_rumah,
@@ -61,6 +63,7 @@ class DatabookingController extends Controller
      */
     public function store(Request $request)
     {
+
         switch($request->booking) {
             case 'tempat':
                 $booking = new DataBookingTempat;
@@ -73,12 +76,24 @@ class DatabookingController extends Controller
                     $booking->alamat = $request->alamat;
                 }
 
-                $booking->layanan_id = $request->layanan_id;
                 $booking->status = 0;
                 $booking->waktu_tunggu = date('H:i:s', strtotime('now'));
                 $booking->member = $request->member;
 
                 if ($booking->save()) {
+
+                    $data_layanan_transaksi_data = [];
+                    for ($i=0; $i < count($request->layanan_id); $i++) { 
+
+                        $data_layanan_transaksi_data[] = [
+                            'booking_di_tempat_id' => $booking->id,
+                            'layanan_id' => $request->layanan_id[$i]
+                        ];
+
+                    }
+
+                    DataTransaksiLayanan::insert($data_layanan_transaksi_data);
+
                     $message = "Booking di tempat atas nama ".ucwords($request->nama)." telah di tambahkan!";
                     return redirect('/data-booking')->with(['success' => $message]);
                  } else {
@@ -113,9 +128,19 @@ class DatabookingController extends Controller
      * @param  \App\Models\DataBooking  $dataBooking
      * @return \Illuminate\Http\Response
      */
-    public function edit(DataBooking $dataBooking)
+    public function edit($booking, $id)
     {
-        //
+        switch($booking) {
+            case 'tempat':
+                $data_booking = DataBookingTempat::find($id);
+                $view = 'admin.data_booking.edit_booking_tempat';
+            break;
+            case 'rumah':
+                $data_booking = DataBookingRumah::find($id);
+                $view = 'admin.data_booking.edit_booking_rumah';
+            break;
+        }
+        return view($view, compact('data_booking'));
     }
 
     /**
@@ -141,6 +166,9 @@ class DatabookingController extends Controller
         if ($booking == "tempat") {
             $booking_tempat = DataBookingTempat::find($id);
             $booking_tempat->delete();
+
+            $data_transaksi_layanan = DataTransaksiLayanan::where('booking_di_tempat_id',$booking_tempat->id)->delete();
+
             return back();
         } else if($booking == "rumah") {
             $booking_rumah = DataBookingRumah::find($id);

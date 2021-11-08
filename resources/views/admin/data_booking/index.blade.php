@@ -82,7 +82,7 @@
                   <th>No</th>
                   <th>Nama</th>
                   <th>Layanan</th>
-                  <th>Biaya</th>
+                  <th>Total Bayar</th>
                   <th>Waktu Tunggu</th>
                   <th>Status Layanan</th>
                   <th>Member</th>
@@ -90,11 +90,26 @@
                 </tr>
               </thead>
               <?php
-                $count = count($data['booking_rumah']);
+                $count = count($data['booking_tempat']);
               ?>
               <tbody class="<?php if($count == 0) echo 'text-center'; ?>">
                 @if($count > 0)
-                  @foreach($data['booking_rumah'] as $key => $value)
+                  @foreach($data['booking_tempat'] as $key => $value)
+                      @php
+                        $jenis_layanan = "";
+                        $total_bayar = 0;
+                      @endphp
+                    @foreach($value->data_transaksi_layanan as $key2 => $transaksi_layanan)
+                      @php
+                        $total_bayar += $transaksi_layanan->layanan->harga_layanan;
+                        $jenis_layanan .= $transaksi_layanan->layanan->jenis_layanan." - <b>Rp".number_format($transaksi_layanan->layanan->harga_layanan)."</b>";
+                      @endphp
+                        @if (($key2 + 1) != count($value->data_transaksi_layanan))
+                          @php
+                            $jenis_layanan .= ",<br> ";
+                          @endphp
+                        @endif
+                    @endforeach
                     <tr class="@if($value->status == 0)
                       table-warning
                         @elseif($value->status == 1)
@@ -104,8 +119,9 @@
                         @endif">
                       <td>{{ ($key+1) }}</td>
                       <td>{{ ucwords($value->nama) }}</td>
-                      <td>{{ $value->layanan->jenis_layanan }}</td>
-                      <td>Rp{{ number_format($value->layanan->harga_layanan) }}</td>                      
+
+                      <td>{!! $jenis_layanan !!}</td>
+                      <td><b>Rp{{ number_format($total_bayar) }}</b></td>                      
                       <td>{{ $value->waktu_tunggu }}</td>
                       <td>
                         @if($value->status == 0)
@@ -124,7 +140,8 @@
                         @endif
                       </td>
                       <td>
-                        <a href="{{ route('edit-data-booking',['id' => $value->id]) }}" class="btn btn-primary btn-sm" title="Update Data" data-id="{{ $value->id }}"><i class="fa fa-edit"></i></a>
+                        <button data-id="{{ $value->id }}" class="btn btn-info btn-sm" title="Lihat Detail" data-id="{{ $value->id }}"><i class="fa fa-eye"></i></button>
+                        <a href="{{ route('edit-data-booking',['booking' => 'tempat','id' => $value->id]) }}" class="btn btn-primary btn-sm" title="Update" data-id="{{ $value->id }}"><i class="fa fa-edit"></i></a>
                         <button class="btn btn-danger btn-sm btn-hapus" title="Hapus" data-nama="{{ $value->nama }}" data-booking="tempat" data-id="{{ $value->id }}"><i class="fa fa-trash"></i></button>
                       </td>
                     </tr>
@@ -139,8 +156,6 @@
             
           {{-- booking di rumah --}}
 
-          <a href="{{ url('/data-booking/tambah/rumah') }}" class="btn btn-success btn-md" style="color: white;float: right">+Tambah</a>
-
             <div class="table-responsive">      
               <table ui-jp="dataTable" class="table">
                 <thead>
@@ -152,11 +167,11 @@
                   </tr>
                 </thead>
                 <?php
-                  $count = count($data['booking_tempat']);
+                  $count = count($data['booking_rumah']);
                 ?>
                 <tbody class="<?php if($count == 0) echo 'text-center'; ?>">
                   @if($count > 0)
-                    @foreach($data['booking_tempat'] as $key => $value)
+                    @foreach($data['booking_rumah'] as $key => $value)
                       <tr>
                         <td>{{ ($key+1) }}</td>
                         <td>{{ ucwords($value->jenis_layanan) }}</td>

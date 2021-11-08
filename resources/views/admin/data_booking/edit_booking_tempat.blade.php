@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-  Data Booking di Tempat | Tambah
+  Edit Booking di Tempat | Edit
 @endsection
 
 @section('css')
@@ -33,63 +33,32 @@
 
   <div class="box">
     <div class="box-header">
-      <h2 style="display:inline"><b>Booking di Tempat</b></h2>
+      <h2 style="display:inline"><b>Edit Data Booking di Tempat</b></h2>
     </div>
 
 
-    <div class="box-divider m-a-0"></div>
+<div class="box-divider m-a-0"></div>
         <div class="box-body">
-          <form role="form" action="{{ url('/data-booking/store') }}" method="post">
+          <form role="form" action="{{ route('update-data-booking',['id' => $data_booking->id]) }}" method="post">
             @csrf
-
-            <input type="hidden" name="booking" value="tempat">
-
-            <div class="form-group row">
-              <label for="member" class="col-sm-2 form-control-label">Status Member</label>
-              <div class="col-sm-10">
-                <select name="member" id="member" class="form-control" onchange="get_member(this.value)" required>
-                  <option value="">== Pilih ==</option>
-                  <option value="1">Member</option>
-                  <option value="0">Non-Member</option>
-                </select>
-              </div>
-            </div>
-
+            @method('PUT')
             <div class="form-group row">
               <label for="jenis_layanan" class="col-sm-2 form-control-label">Jenis Layanan</label>
               <div class="col-sm-10">
-                  <select name="layanan_id[]" id="layanan_id" class="form-control" multiple required>
-                    @foreach($data['layanan'] as $value)
-                      <option value="{{ $value->id }}">{{ $value->jenis_layanan }} (Rp{{ number_format($value->harga_layanan) }})</option>
-                    @endforeach                    
-                  </select>
+                <input type="text" name="jenis_layanan" class="form-control" id="jenis_layanan" placeholder="Masukkan Jenis Layanan" required="" value="{{ $data_booking->id }}">
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="nama" class="col-sm-2 form-control-label">Nama</label>
+              <label for="harga_layanan" class="col-sm-2 form-control-label">Harga Layanan</label>
               <div class="col-sm-10">
-                <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama" required>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="no_hp" class="col-sm-2 form-control-label">No. HP</label>
-              <div class="col-sm-10">
-                <input type="number" name="no_hp" class="form-control" id="no_hp" placeholder="Masukkan Nomor HP">
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="alamat" class="col-sm-2 form-control-label">Alamat</label>
-              <div class="col-sm-10">
-                <input type="text" name="alamat" class="form-control" id="alamat" placeholder="Masukkan Alamat">
+                <input type="text" name="harga_layanan" class="form-control" id="harga_layanan" placeholder="Masukkan Harga Layanan" required value="{{ $data_booking->id }}">
               </div>
             </div>
 
             <div class="form-group row m-t-md">
               <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn success">Tambah</button>
+                <button type="submit" class="btn primary">Update</button>
                 <a href="{{ url('/data-booking') }}" type="button" class="btn danger">Batal</a>
               </div>
             </div>
@@ -153,33 +122,5 @@
 @section('script')
 <script>
   $("li#data-booking").addClass('active');
-
-
-  function get_member(member) {
-    if (member == 1) {
-      ajaxSetup();
-      $.ajax({
-        url:"{{ url('get-member') }}",
-        type:"post",
-        data:{},
-        dataType:"json"
-      }).done(function(res) {
-        console.log(res);
-      }).fail(function(res) {
-        console.log(res);
-      });
-    } else if(member == 0) {
-      console.log('Non Member');
-    }
-  }
-
-  function ajaxSetup() {
-      $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-      });     
-  }      
-
 </script>
 @endsection

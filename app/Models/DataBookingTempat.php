@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\DataTransaksi;
+use App\Models\DataTransaksiLayanan;
+
 class DataBookingTempat extends Model
 {
     use HasFactory;
@@ -20,7 +23,7 @@ class DataBookingTempat extends Model
     ];
 
     public function transaksi() {
-        return $this->belongsTo('App\Models\DataTransaksi');
+        return $this->belongsTo(DataTransaksi::class);
     }
 
     public function pelanggan() {
@@ -29,5 +32,9 @@ class DataBookingTempat extends Model
 
     public function layanan() {
         return $this->belongsTo(DataLayanan::class);
+    }
+
+    public function data_transaksi_layanan() {
+        return $this->hasMany(DataTransaksiLayanan::class, 'booking_di_tempat_id', 'id');
     }
 }
