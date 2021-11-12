@@ -2,7 +2,8 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no"/>
+        <meta http-equiv="Content-Type" content="text/html, charset=utf-8"/>
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Mr Barbershop</title>
@@ -18,7 +19,7 @@
         <style type="text/css">
 #carousel {
 position: relative;
-width:60%;
+width:100%;
 margin:0 auto;
 }
 
@@ -124,9 +125,9 @@ height: 30px;
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav text-uppercase ml-auto">
                             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Why Us</a></li>
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Galeri</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Informasi</a></li>
                             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Testimoni</a></li>
-                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#team">Capster</a></li>
+                            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#team">Kapster</a></li>
                             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Maps</a></li>
                             @if (Route::has('login'))
                                 @auth
@@ -154,6 +155,7 @@ height: 30px;
                 <div class="container">
                     <div class="text-center">
                         <h2 class="section-heading text-uppercase">Why Us</h2>
+                        <h3 class="section-subheading text-muted">Mengapa memilih Mr Barbersop.</h3>
                     </div>
                     <div class="row text-center">
                         <div class="col-md-4">
@@ -170,7 +172,7 @@ height: 30px;
                                 <i class="fas fa-cut fa-stack-1x fa-inverse"></i>
                             </span>
                             <h4 class="my-3">Potongan Berkualitas</h4>
-                            <p class="text-muted">Para barber paham tentang bentuk wajah manusia, tekstur rambut, jenis rambut, dan kombinasi ketiga elemen tersebut untuk hasil potong yang terbaik dan sesuai dengan karakter & lifestyle kamu.</p>
+                            <p class="text-muted">Para kapster paham tentang bentuk wajah manusia, tekstur rambut, jenis rambut, dan kombinasi ketiga elemen tersebut untuk hasil potong yang terbaik dan sesuai dengan karakter & lifestyle kamu.</p>
                         </div>
                         <div class="col-md-4">
                             <span class="fa-stack fa-4x">
@@ -178,7 +180,7 @@ height: 30px;
                                 <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
                             </span>
                             <h4 class="my-3">Sistem Booking Online</h4>
-                            <p class="text-muted">Antri dan menunggu? Tidak perlu lagi. Mr Barbershop sangat menghargai waktu kamu. So, kamu bisa booking jadwal potong rambut kamu via website kami ini.</p>
+                            <p class="text-muted">Antri dan menunggu? Tidak perlu lagi. Mr Barbershop sangat menghargai waktu kamu. jadi, kamu bisa booking antrian potong rambut kamu via website kami ini.</p>
                         </div>
                     </div>
                 </div>
@@ -188,7 +190,7 @@ height: 30px;
                 <div class="container">
                     <div class="text-center">
                         <h2 class="section-heading text-uppercase text-white">Informasi</h2>
-                        <h3 class="section-subheading text-muted">Informasi terbaru Mr.Barber</h3>
+                        <h3 class="section-subheading text-muted">Informasi terbaru mengenai Mr Barbershop</h3>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-sm-12 mb-12">
@@ -238,7 +240,7 @@ height: 30px;
                 <div class="container">
                     <div class="text-center">
                         <h2 class="section-heading text-uppercase">Testimoni</h2>
-                        <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                        <h3 class="section-subheading text-muted">Apa kata mereka mengenai Mr Barbersop.</h3>
                     </div>
                     <ul class="timeline">
                         <li>
@@ -296,41 +298,41 @@ height: 30px;
                 </div>
             </section>
             <!-- Team-->
-            <section class="page-section bg-light" id="team">
+            <section class="page-section bg-dark" id="team">
                 <div class="container">
                     <div class="text-center">
-                        <h2 class="section-heading text-uppercase">Capster</h2>
-                        <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                        <h2 class="section-heading text-uppercase text-light">Kapster</h2>
+                        <h3 class="section-subheading text-muted">Kapster Mr Barbershop telah dibekali skill sehingga mampu memberikan potongan rambut secara baik dan profesional.</h3>
                     </div>
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="team-member">
                                 <img class="mx-auto rounded-circle" src="assets/img/team/1.jpg" alt="" />
-                                <h4>Sandy</h4>
+                                <h4 class="text-light">Sandy</h4>
                                 <p class="text-muted">Sandi </p>
-                                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-light btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-light btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-light btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="team-member">
                                 <img class="mx-auto rounded-circle" src="assets/img/team/2.jpg" alt="" />
-                                <h4>Andi Munzir</h4>
+                                <h4 class="text-light">Andi Munzir</h4>
                                 <p class="text-muted">Unci</p>
-                                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-light btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-light btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-light btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="team-member">
                                 <img class="mx-auto rounded-circle" src="assets/img/team/3.jpg" alt="" />
-                                <h4>Wandy</h4>
+                                <h4 class="text-light">Wandy</h4>
                                 <p class="text-muted">Wandy</p>
-                                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-light btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-light btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-light btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
@@ -338,37 +340,35 @@ height: 30px;
                         <div class="col-lg-4">
                             <div class="team-member">
                                 <img class="mx-auto rounded-circle" src="assets/img/team/4.jpg" alt="" />
-                                <h4>Hidayat</h4>
+                                <h4 class="text-light">Hidayat</h4>
                                 <p class="text-muted">Dayat</p>
-                                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-light btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-light btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-light btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="team-member">
                                 <img class="mx-auto rounded-circle" src="assets/img/team/5.jpg" alt="" />
-                                <h4>Ekky Rappan</h4>
+                                <h4 class="text-light">Ekky Rappan</h4>
                                 <p class="text-muted">Jojo</p>
-                                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-light btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-light btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-light btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="team-member">
                                 <img class="mx-auto rounded-circle" src="assets/img/team/6.jpg" alt="" />
-                                <h4>Fikram Pratama</h4>
+                                <h4 class="text-light">Fikram Pratama</h4>
                                 <p class="text-muted">Piko</p>
-                                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-light btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-light btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-light btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p></div>
-                    </div>
+                  
                 </div>
             </section>
             <!-- Clients-->
@@ -378,7 +378,7 @@ height: 30px;
                 <div class="container">
                     <div class="text-center">
                         <h2 class="section-heading text-uppercase">Maps</h2>
-                        <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                        <h3 class="section-subheading text-muted">Jl. Jend Sudirman No.128, Binturu, Wara Selatan, Kota Palopo, Sulawesi Selatan 91921.</h3>
                     </div>
                     <div class="embed-responsive embed-responsive-16by9">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.2795850486514!2d120.20699871462394!3d-3.019372040823147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d915ed6e1df489d%3A0x21141e3d4fcc742!2sMr.%20BarberShop!5e0!3m2!1sid!2sid!4v1617524432459!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>     
@@ -393,7 +393,7 @@ height: 30px;
                         <div class="col-lg-4 my-3 my-lg-0">
                             <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
                             <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-instagram"></i></a>
                         </div>
                         <div class="col-lg-4 text-lg-right">
                             <a class="mr-3" href="#!">Privacy Policy</a>
