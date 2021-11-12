@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\DataLayanan;
+use App\Models\User;
+
 class DataBookingRumah extends Model
 {
     use HasFactory;
@@ -24,10 +27,10 @@ class DataBookingRumah extends Model
     }
 
     public function pelanggan() {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'id', 'users_id');
     }
 
     public function layanan() {
-        return $this->hasOne(DataLayanan::class);
+        return $this->hasOne(DataLayanan::class, 'id', 'layanan_id');
     }
 }

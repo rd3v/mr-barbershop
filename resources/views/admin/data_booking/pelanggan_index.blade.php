@@ -64,10 +64,13 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Nama</th>
+                    <th>Layanan</th>
+                    <th>Jumlah Orang</th>
+                    <th>Total Bayar</th>
                     <th>Alamat</th>
                     <th>No. HP</th>
                     <th>Peta</th>
+                    <th>Status</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -79,11 +82,25 @@
                     @foreach($data['booking_rumah'] as $key => $value)
                       <tr>
                         <td>{{ ($key+1) }}</td>
-                        <td>{{ ucwords($value->jenis_layanan) }}</td>
-                        <td>Rp{{ number_format($value->harga_layanan) }}</td>
+                        <td>{{ $value->layanan->jenis_layanan }} - Rp{{ number_format($value->layanan->harga_layanan) }}</td>
+                        <td>{{ $value->jumlah_orang }}</td>
+                        <td>Rp{{ number_format($value->layanan->harga_layanan * $value->jumlah_orang) }}</td>
+                        <td>{{ $value->alamat }}</td>
+                        <td>{{ $value->pelanggan->no_hp }}</td>
+                        <td><a class="btn btn-sm btn-primary" href="https://maps.google.com?q={{$value->lat}},{{$value->lng}}" target="_blank"><i class="material-icons">map</i> Open Map</a></td>
                         <td>
-                          <a href="{{ route('edit-data-booking',['id' => $value->id]) }}" class="btn btn-primary btn-sm" title="Edit Booking" data-id="{{ $value->id }}"><i class="fa fa-edit"></i></a>
-                          <button class="btn btn-danger btn-sm btn-hapus" title="Hapus" data-booking="{{ $value->jenis_layanan }}" data-id="{{ $value->id }}"><i class="fa fa-trash"></i></button>
+                          @if($value->status_booking == null or $value->status_booking == '')
+                          Menunggu Konfirmasi
+                          @else
+                          {{ ($value->status_booking == 'terima' ? 'Di Terima':'Di Tolak') }}
+                          @endif
+                        </td>
+                        <td>
+
+                        @if($value->status_booking == null or $value->status_booking == '')
+                          <button class="btn btn-danger btn-sm btn-batal" title="Batalkan Booking" data-id="{{ $value->id }}"><i class="fa fa-remove"></i></button>
+                        @endif
+
                         </td>
                       </tr>
                     @endforeach
@@ -184,27 +201,13 @@ var MODULE_CONFIG = {
 <script>
   $("li#data-booking").addClass('active');
 
-  $(".btn-accept").click(() => {
+  $(".btn-batal").click(function() {
 
     var id = $(this).data('id');
-    var nama = $(this).data('nama');
-    var booking = $(this).data('booking');
-    if(!confirm('Terima Booking Pelanggan ' + nama)) return false;
-
-      alert('Booking di terima');
-
-  });
-
-  $(".btn-denied").click(function() {
-
-    var id = $(this).data('id');
-    var nama = $(this).data('nama');
-    var booking = $(this).data('booking');
-    if(!confirm('Tolak Booking Pelanggan ' + nama)) return false;
-
-      alert('Booking di tolak');
+    if(!confirm('Batalkan booking ini ?')) return false;
       
-      $('#hapus_form').attr('action', "/data-booking/delete/" + booking + "/" + id).submit();
+      console.log('pelanggan action')
+      $('#hapus_form').attr('action', "/data-booking/delete/" + 'rumah' + "/" + id).submit();
 
   });
 </script>

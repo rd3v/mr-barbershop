@@ -8,6 +8,8 @@ use App\Models\DataLayanan;
 use App\Models\DataTransaksiLayanan;
 use App\Models\User;
 
+use App\Services\TelegramMessage;
+
 use Illuminate\Http\Request;
 use Auth;
 
@@ -19,9 +21,9 @@ class DatabookingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {        
         $data_booking_tempat = DataBookingTempat::with('data_transaksi_layanan')->orderBy('id','desc')->get();
-        $data_booking_rumah = DataBookingRumah::orderBy('id','desc')->get();
+        $data_booking_rumah = DataBookingRumah::with('pelanggan','layanan')->orderBy('id','desc')->get();
 
         switch (Auth::user()->level) {
             case 'admin':
@@ -112,7 +114,6 @@ class DatabookingController extends Controller
                 }
 
                 $booking->status = 0;
-                $booking->waktu_tunggu = date('H:i:s', strtotime('now'));
                 $booking->member = $request->member;
 
                 if ($booking->save()) {
@@ -138,6 +139,57 @@ class DatabookingController extends Controller
 
             break;
             case 'rumah':
+                $booking = new DataBookingRumah;
+                $booking->users_id = Auth::user()->id;
+                $booking->alamat = $request->alamat;
+                $booking->layanan_id = $request->layanan_id;
+                $booking->jumlah_orang = $request->jumlah_orang;
+                $booking->kapster = $request->kapster_id;
+                $booking->lat = $request->lat;
+                $booking->lng = $request->lng;
+
+                if ($booking->save()) {
+                    $kapster = User::find($request->kapster_id);
+                    $message = "Booking di rumah telah di tambahkan!. Silahkan menunggu konfirmasi dari kapster ".ucwords($kapster->name).", terima kasih ";
+
+                    if ($kapster->telegram_chat_id != null and $kapster->telegram_chat_id != "") {
+
+                        // kirim notifikasi ke Kapster dan Admin
+                         $telegram_detail_booking = [
+                            'chat_id' => $kapster->telegram_chat_id,
+                            'text' => "Halo ".ucwords($kapster->name).",\nada booking ke rumah dengan detail sebagai berikut:\n\nNama Pemesan : ".ucwords(Auth::user()->name)."\nAlamat : ".ucwords($request->alamat)."\nJenis Layanan : ".ucwords($booking->layanan->jenis_layanan)."\nJumlah Orang : ".$request->jumlah_orang."\nNo.HP : ".$request->no_hp."\nTotal Bayar : Rp".number_format($booking->layanan->harga_layanan * $request->jumlah_orang)."\n\nSilahkan konfirmasi booking dengan cara klik atau copy & paste link ini di browser : ".url('/data-booking'),
+                        ];
+                        $telegram_detail_booking_location = [
+                            'chat_id' => $kapster->telegram_chat_id,
+                            'latitude' => $request->lat,
+                            'longitude' => $request->lng,
+                        ];
+
+                        $admin = User::where('level', 'admin')->first();
+                         $telegram_admin = [
+                            'chat_id' => $admin->telegram_chat_id,
+                            'text' => "Halo ".ucwords($kapster->name).",\nada booking ke rumah dengan detail sebagai berikut:\n\nNama Pemesan : ".ucwords(Auth::user()->name)."\nAlamat : ".ucwords($request->alamat)."\nJenis Layanan : ".ucwords($booking->layanan->jenis_layanan)."\nJumlah Orang : ".$request->jumlah_orang."\nNo.HP : ".$request->no_hp."\nTotal Bayar : Rp".number_format($booking->layanan->harga_layanan * $request->jumlah_orang)."\n\nSilahkan konfirmasi booking dengan cara klik atau copy & paste link ini di browser : ".url('/data-booking'),
+                        ];
+                        $telegram_detail_booking_location_admin = [
+                            'chat_id' => $admin->telegram_chat_id,
+                            'latitude' => $request->lat,
+                            'longitude' => $request->lng,
+                        ];
+
+                        $telegramMessage = new TelegramMessage();
+
+                        $telegramMessage->sendMessage($telegram_detail_booking);
+                        $telegramMessage->sendLocation($telegram_detail_booking_location);
+
+                        $telegramMessage->sendMessage($telegram_admin);
+                        $telegramMessage->sendLocation($telegram_detail_booking_location_admin);
+                    }
+
+                    return redirect('/data-booking')->with(['success' => $message]);
+                } else {
+                    $message = "Gagal menambahkan data booking. Silahkan coba lagi atau kontak admin Mr.Barber, terima kasih";
+                    return back()->with(['errors' => $message]);
+                }
 
             break;
             default:
@@ -263,6 +315,30 @@ class DatabookingController extends Controller
         } else if($booking == "rumah") {
             $booking_rumah = DataBookingRumah::find($id);
             $booking_rumah->delete();
+
+            $kapster = User::find($booking_rumah->kapster);
+            if ($kapster->telegram_chat_id != null and $kapster->telegram_chat_id != "") {
+
+                // kirim notifikasi ke Kapster dan Admin
+                 $telegram_detail_booking = [
+                    'chat_id' => $kapster->telegram_chat_id,
+                    'text' => "Halo ".ucwords($kapster->name).",\npelanggan atas nama ".ucwords($booking_rumah->pelanggan->name)." telah membatalkan pesanan nya.\n\nHarap melakukan konfirmasi ulang kepada pelanggan. Terima kasih",
+                ];
+
+                $admin = User::where('level', 'admin')->first();
+                 $telegram_admin = [
+                    'chat_id' => $admin->telegram_chat_id,
+                    'text' => "Halo ".ucwords($kapster->name).",\npelanggan atas nama ".ucwords($booking_rumah->pelanggan->name)." telah membatalkan pesanan nya.\n\nHarap melakukan konfirmasi ulang kepada pelanggan. Terima kasih",
+                ];
+
+                $telegramMessage = new TelegramMessage();
+                
+                $telegramMessage->sendMessage($telegram_detail_booking);
+                $telegramMessage->sendMessage($telegram_admin);
+
+            }
+
+
             return back();
         }
     }

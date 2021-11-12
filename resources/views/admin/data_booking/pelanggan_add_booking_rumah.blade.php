@@ -18,7 +18,7 @@
   <!-- endbuild -->
   <link rel="stylesheet" href="{{ asset('themes/dashboard/v1/assets/styles/font.css') }}" type="text/css" />
   <style type="text/css">
-    #map{ width:700px; height: 500px; }
+    #map{ width:100%; height: 480px; }
   </style>
 @endsection
 
@@ -44,7 +44,7 @@
           <form role="form" action="{{ url('/data-booking/store') }}" method="post">
             @csrf
 
-            <input type="hidden" name="booking" value="tempat">
+            <input type="hidden" name="booking" value="rumah">
 
             <div class="form-group row">
               <label for="jenis_layanan" class="col-sm-2 form-control-label">Jenis Layanan</label>
@@ -56,7 +56,14 @@
             </div>
 
             <div class="form-group row">
-              <label for="nama" class="col-sm-2 form-control-label">Nama</label>
+              <label for="jumlah_orang" class="col-sm-2 form-control-label">Jumlah Orang</label>
+              <div class="col-sm-10">
+                <input type="number" name="jumlah_orang" class="form-control" id="jumlah_orang" placeholder="Masukkan Jumlah Orang" required>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="nama" class="col-sm-2 form-control-label">Nama Pemesan</label>
               <div class="col-sm-10">
                 <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama" value="{{ Auth::user()->name }}" required>
               </div>
@@ -72,26 +79,29 @@
             <div class="form-group row">
               <label for="alamat" class="col-sm-2 form-control-label">Alamat</label>
               <div class="col-sm-10">
-                <input type="text" name="alamat" class="form-control" id="alamat" placeholder="Masukkan Alamat">
+                <input type="text" name="alamat" class="form-control" id="alamat" placeholder="Masukkan Alamat" required>
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="lokasi" class="col-sm-2 form-control-label">Lokasi</label>
+              <label for="lokasi" class="col-sm-2 form-control-label">Pilih Lokasi</label>
               <div class="col-sm-10">              
+                
                 <div id="map"></div>
-              </div>
-            </div>
+
+                <br>
+
+                <input style="margin-bottom: 5px" type="text" id="onIdlePositionView" class="form-control" readonly="yes">
+                <input type="hidden" name="lat" id="lat">
+                <input type="hidden" name="lng" id="lng">
+
+               </div>
+             </div>
 
             <div class="form-group row">
-              <input type="text" id="lat" class="form-control" readonly="yes"><br>
-              <input type="text" id="lng" class="form-control" readonly="yes">
-            </div>
-
-            <div class="form-group row">
-              <label for="kapster" class="col-sm-2 form-control-label">Kapster</label>
+              <label for="kapster_id" class="col-sm-2 form-control-label">Kapster</label>
               <div class="col-sm-10">
-                <select name="kapster" id="kapster" class="form-control" onchange="get_member(this.value)" required>
+                <select name="kapster_id" id="kapster_id" class="form-control" onchange="get_member(this.value)" required>
                   <option value="">== Pilih ==</option>
                   @foreach($data['kapster'] as $value)
                     <option value="{{ $value->id }}">{{ ucwords($value->name) }}</option>
@@ -147,8 +157,9 @@
   <!-- ajax -->
   <script src="{{ asset('themes/dashboard/v1/libs/jquery/jquery-pjax/jquery.pjax.js') }}"></script>
   <script src="{{ asset('themes/dashboard/v1/scripts/ajax.js') }}"></script>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFbCMlSFpcX4hcL2M1nt_x6GotUW-qxG0"></script>  
-  <script>{{ asset('js/map.js') }}</script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFbCMlSFpcX4hcL2M1nt_x6GotUW-qxG0"></script>
+  <script src="https://unpkg.com/location-picker/dist/location-picker.min.js"></script>
+
 <!-- endbuild -->
   <script>
     (function ($) {
@@ -168,7 +179,33 @@
 
 @section('script')
 <script>
-  $("li#data-booking").addClass('active');
+  $(document).ready(function() {
+    $("li#data-booking").addClass('active');
+
+  // Get element references
+    var onClickPositionView = document.getElementById('onClickPositionView');
+    var onIdlePositionView = document.getElementById('onIdlePositionView');
+    var lat = document.getElementById('lat');
+    var lng = document.getElementById('lng');
+
+    // Initialize locationPicker plugin
+    var lp = new locationPicker('map', {
+      setCurrentPosition: true, // You can omit this, defaults to true
+    }, {
+      zoom: 15 // You can set any google map options here, zoom defaults to 15
+    });
+
+    // Listen to map idle event, listening to idle event more accurate than listening to ondrag event
+    google.maps.event.addListener(lp.map, 'idle', function (event) {
+      // Get current location and show it in HTML
+      var location = lp.getMarkerPosition();
+      onIdlePositionView.value = 'Posisi yang dipilih adalah ' + location.lat + ',' + location.lng;
+
+      lat.value = location.lat;
+      lng.value = location.lng;
+    });    
+
+  });
 
 
   function get_member(member) {
