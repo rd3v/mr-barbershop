@@ -59,17 +59,21 @@
                 </a>
               </li>
 
-              <li id="data-kapster">
-                <a href="{{ url('/data-kapster') }}" >
-                  <span class="nav-icon">
-                    <i class="material-icons">&#xe7ef;
-                      <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span>
-                    </i>
-                  </span>
-                  <span class="nav-text">Data Kapster</span>
-                </a>
-              </li>              
-          
+
+              @if(Auth::user()->level == 'admin')
+                <li id="data-kapster">
+                  <a href="{{ url('/data-kapster') }}" >
+                    <span class="nav-icon">
+                      <i class="material-icons">&#xe7ef;
+                        <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span>
+                      </i>
+                    </span>
+                    <span class="nav-text">Data Kapster</span>
+                  </a>
+                </li>
+              @endif
+
+              @if(Auth::user()->level == 'admin')          
               <li id="data-pelanggan">
                 <a href="{{ url('/data-pelanggan') }}">
                   <span class="nav-icon">
@@ -80,7 +84,9 @@
                   <span class="nav-text">Data Pelanggan</span>
                 </a>
               </li>
+              @endif
           
+              @if(Auth::user()->level == 'admin')          
               <li id="data-layanan">
                 <a href="{{ url('/data-layanan') }}" >
                   <span class="nav-icon">
@@ -91,6 +97,7 @@
                   <span class="nav-text">Data Layanan</span>
                 </a>
               </li>
+              @endif
           
               <li id="data-booking">
                 <a href="{{ url('/data-booking') }}" >
@@ -103,6 +110,7 @@
                 </a>
               </li>
           
+              @if(Auth::user()->level == 'admin')          
               <li id="data-informasi">
                 <a href="{{ url('/data-informasi') }}" >
                   <span class="nav-icon">
@@ -113,7 +121,9 @@
                   <span class="nav-text">Data Informasi</span>
                 </a>
               </li>
+              @endif
           
+              @if(Auth::user()->level == 'admin')          
               <li id="data-laporan">
                 <a href="{{ url('/data-laporan') }}" >
                   <span class="nav-icon">
@@ -124,6 +134,7 @@
                   <span class="nav-text">Laporan</span>
                 </a>
               </li>
+              @endif
                     
             </ul>
         </nav>
@@ -173,11 +184,18 @@
               <li class="nav-item dropdown">
                 <a class="nav-link clear" href="" data-toggle="dropdown" aria-expanded="false">
                   <span class="avatar w-32">
-                    <img src="{{ asset('themes/dashboard/v1/assets/images/a0.jpg') }}" alt="...">
+                    @php
+                      if(Auth::user()->foto == null or Auth::user()->foto == '') {
+                        $img = asset('themes/dashboard/v1/assets/images/a0.jpg');
+                      } else {
+                        $img = asset('assets/img/kapster/'.Auth::user()->foto);
+                      }
+                    @endphp
+                    <img src="{{ $img }}" alt="...">
                     <i class="on b-white bottom"></i>
                   </span>
                 </a>
-                <div class="dropdown-menu pull-right dropdown-menu-scale"><a class="dropdown-item" ui-sref="app.inbox.list"><span>Inbox</span> <span class="label warn m-l-xs">3</span></a> <a class="dropdown-item" href="{{ url('my-profile') }}"><span>Profile</span></a> <a class="dropdown-item" ui-sref="app.page.setting"><span>Settings</span> <span class="label primary m-l-xs">3/9</span></a><div class="dropdown-divider"></div><a class="dropdown-item" ui-sref="app.docs">Need help?</a> 
+                <div class="dropdown-menu pull-right dropdown-menu-scale"><a class="dropdown-item" ui-sref="app.inbox.list"><span>Inbox</span> <span class="label warn m-l-xs">3</span></a> <a class="dropdown-item" href="{{ url('my-profile') }}"><span>Profile</span></a> <a class="dropdown-item" ui-sref="app.page.setting"><span>Settings</span> <span class="label primary m-l-xs">3/9</span></a><div class="dropdown-divider"></div>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
@@ -204,13 +222,15 @@
               <div ui-include="'../views/blocks/navbar.form.right.html'"></div>
               <!-- link and dropdown -->
               <ul class="nav navbar-nav">
-                <li class="nav-item dropdown">
-                  <a class="nav-link" href data-toggle="dropdown">
-                    <i class="fa fa-fw fa-plus text-muted"></i>
-                    <span>Tambah Antrian</span>
-                  </a>
-                  <div ui-include="'../views/blocks/dropdown.new.html'"></div>
-                </li>
+                @if(Auth::user()->level == 'admin')
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href data-toggle="dropdown">
+                      <i class="fa fa-fw fa-plus text-muted"></i>
+                      <span>Tambah Antrian</span>
+                    </a>
+                    <div ui-include="'../views/blocks/dropdown.new.html'"></div>
+                  </li>
+                @endif
               </ul>
               <!-- / -->
             </div>

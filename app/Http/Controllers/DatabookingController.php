@@ -6,8 +6,10 @@ use App\Models\DataBookingTempat;
 use App\Models\DataBookingRumah;
 use App\Models\DataLayanan;
 use App\Models\DataTransaksiLayanan;
+use App\Models\User;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class DatabookingController extends Controller
 {
@@ -21,7 +23,23 @@ class DatabookingController extends Controller
         $data_booking_tempat = DataBookingTempat::with('data_transaksi_layanan')->orderBy('id','desc')->get();
         $data_booking_rumah = DataBookingRumah::orderBy('id','desc')->get();
 
-        return view('admin.data_booking.index', [
+        switch (Auth::user()->level) {
+            case 'admin':
+                $view = 'admin.data_booking.index';
+                break;
+            case 'kapster':
+                $view = 'admin.data_booking.kapster_index';
+                break;
+            case 'pelanggan':
+                $view = 'admin.data_booking.pelanggan_index';
+                break;
+            
+            default:
+                $view = 'admin.data_booking.index';
+                break;
+        }
+
+        return view($view, [
             'data' => [
                 'booking_rumah' => $data_booking_rumah,
                 'booking_tempat' => $data_booking_tempat,
@@ -37,21 +55,38 @@ class DatabookingController extends Controller
     public function create($kode)
     {
 
-        $data_layanan = DataLayanan::select('id','jenis_layanan','harga_layanan')->get();
+        $level = Auth::user()->level;
 
-        switch ($kode) {
-            case 'tempat':
-                $view = 'admin.data_booking.add_booking_tempat';
-                break;
-            case 'rumah':
-                $view = 'admin.data_booking.add_booking_rumah';
-                break;
-            default:
-                $view = 'admin.data_booking.add_booking_tempat';
-                break;
+        if ($level == 'admin') {
+
+            switch ($kode) {
+                case 'tempat':
+                    $view = 'admin.data_booking.add_booking_tempat';
+                    break;
+                case 'rumah':
+                    $view = 'admin.data_booking.add_booking_rumah';
+                    break;
+                default:
+                    $view = 'admin.data_booking.add_booking_tempat';
+                    break;
+            }
+
+            $data_layanan = DataLayanan::select('id','jenis_layanan','harga_layanan')->get();
+            $data = ['layanan' => $data_layanan];
+
+        } else if($level == 'pelanggan') {
+            $view = 'admin.data_booking.pelanggan_add_booking_rumah';
+            $data_layanan = DataLayanan::where('jenis_layanan','Potong Rambut')->first();
+            $kapster = User::where('level', 'kapster')->get();
+
+            $data = [
+                'layanan' => $data_layanan,
+                'kapster' => $kapster
+            ];
         }
+
         return view($view, [
-            'data' => ['layanan' => $data_layanan]
+            'data' => $data
         ]);
     }
 

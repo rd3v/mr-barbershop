@@ -15,7 +15,7 @@ class DataBookingTempat extends Model
     protected $table = 'booking_di_tempat';
 
     protected $fillable = [
-        'id', 'users_id', 'layanan_id', 'waktu_tunggu', 'status',
+        'id', 'users_id', 'layanan_id',
     ];
 
     protected $hidden = [

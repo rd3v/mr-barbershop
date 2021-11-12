@@ -39,20 +39,25 @@
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
+                        {{ __('Lupa Password ?') }}
                     </a>
                 @endif
 
                 @if (Route::has('register'))
-                <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
+                <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Daftar Pelanggan</a>
                 @endif
 
                 <x-jet-button class="ml-4">
                     {{ __('Log in') }}
                 </x-jet-button>
 
-
             </div>
         </form>
+    <br>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+            <a href="{{ url('/') }}" class="btn"><u>Back to Homepage</u></a>
+        </div>
+    </div>
     </x-jet-authentication-card>
 </x-guest-layout>

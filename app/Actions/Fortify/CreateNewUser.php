@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
+use Str;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -22,14 +23,26 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'no_hp' => ['required', 'min:12', 'max:13', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:75', 'unique:users'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
 
+        $name = $input['name'];
+        $username = '';
+        if ($name == trim($name) and strpos($name, ' ') !== false) {
+            $username = Str::slug($name);
+        } else {
+            $username = $name;
+        }
+
         return User::create([
-            'name' => $input['name'],
+            'name' => $name,
+            'username' => $username,
+            'no_hp' => $input['no_hp'],
             'email' => $input['email'],
+            'level' => 'pelanggan',
             'password' => Hash::make($input['password']),
         ]);
     }

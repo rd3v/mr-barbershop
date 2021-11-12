@@ -63,7 +63,7 @@
                     </i>
                       </div>
                       <div class="clear">
-                        <div class="text-muted">Booking di Rumah</div>
+                        <div class="text-muted">Booking ke Rumah</div>
                         <h4 class="m-a-0 text-md _600"><a href>0</a></h4>
                       </div>
                     </div>
@@ -76,7 +76,7 @@
                     </i>
                       </div>
                       <div class="clear">
-                        <div class="text-muted">Booking di Tempat</div>
+                        <div class="text-muted">Service on Barber</div>
                         <h4 class="m-a-0 text-md _600"><a href="{{ url('/data-booking') }}" style="cursor: pointer;">{{ $data['jumlah_booking_di_tempat'] }}</a></h4>
                       </div>
                     </div>
@@ -135,8 +135,10 @@
                     </div>
                 </div>
                 <div class="box-footer">
-                    <a href class="btn btn-sm btn-outline b-info rounded text-u-c pull-right">Tambah Antrian</a>
-                    <a href class="btn btn-sm white text-u-c rounded">More</a>
+                    @if(Auth::user()->level == 'admin')
+                      <a href class="btn btn-sm btn-outline b-info rounded text-u-c pull-right">Tambah Antrian</a>
+                    @endif
+                    <a href style="visibility: hidden" class="btn btn-sm white text-u-c rounded"></a>
                 </div>
             </div>
         </div>
@@ -144,42 +146,6 @@
             </div>
         </div>
 
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="row-col box dark bg">
-                <div class="col-sm-8">
-                    <div class="box-header">
-                      <h3>Activities</h3>
-                      <small>Your last activity is posted 4 hours ago</small>
-                    </div>
-                    <div class="box-body">
-                        <div ui-jp="plot" ui-refresh="app.setting.color" ui-options="
-                          [
-                            { 
-                              data: [[1, 6.1], [2, 6.3], [3, 6.4], [4, 6.6], [5, 7.0], [6, 7.7], [7, 8.3]], 
-                              points: { show: true, radius: 0}, 
-                              splines: { show: true, tension: 0.45, lineWidth: 2, fill: 0 } 
-                            },
-                            { 
-                              data: [[1, 5.5], [2, 5.7], [3, 6.4], [4, 7.0], [5, 7.2], [6, 7.3], [7, 7.5]], 
-                              points: { show: true, radius: 0}, 
-                              splines: { show: true, tension: 0.45, lineWidth: 2, fill: 0 } 
-                            }
-                          ], 
-                          {
-                            colors: ['#0cc2aa','#fcc100'],
-                            series: { shadowSize: 3 },
-                            xaxis: { show: true, font: { color: '#ccc' }, position: 'bottom' },
-                            yaxis:{ show: true, font: { color: '#ccc' }},
-                            grid: { hoverable: true, clickable: true, borderWidth: 0, color: 'rgba(120,120,120,0.5)' },
-                            tooltip: true,
-                            tooltipOpts: { content: '%x.0 is %y.4',  defaultTheme: false, shifts: { x: 0, y: -40 } }
-                          }
-                        " style="height:162px" >
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
 </div>
