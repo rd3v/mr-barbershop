@@ -61,9 +61,9 @@
         {{-- booking ke rumah --}}
 
         <div style="padding: 1em">
-            
-            <div class="alert" style="background-color: #E0E0E0">
-              <h5>No.1</h5>
+            @foreach($data['booking_rumah'] as $key => $value)
+            <div class="alert @if($value->status_booking == 'tolak') bg-danger @elseif($value->status_booking == 'selesai') bg-primary @endif" style="background-color: #E0E0E0">
+              <h5>No.{{($key+1)}}</h5>
               <h4 class="text-center"><u>Konfirmasi Booking</u></h4>
               <br>
               <div class="row">
@@ -72,36 +72,36 @@
                     <tr>
                       <td>Nama</td>
                       <td>:</td>
-                      <td>Fikratullah Nugraha</td>
+                      <td>{{ ucwords($value->pelanggan->name) }}</td>
                     </tr>
                     <tr>
                       <td>No. HP</td>
                       <td>:</td>
-                      <td>081222333444</td>
-                    </tr>
-                    <tr>
-                      <td>Gender</td>
-                      <td>:</td>
-                      <td>Pria</td>
+                      <td>{{ ucwords($value->pelanggan->no_hp) }}</td>
                     </tr>
                     <tr>
                       <td>Pelayanan</td>
                       <td>:</td>
-                      <td>1. Hair Cut<br>2. Creambath</td>
+                      <td>{{ $value->layanan->jenis_layanan }}</td>
+                    </tr>
+                    <tr>
+                      <td>Jumlah</td>
+                      <td>:</td>
+                      <td>{{ $value->jumlah_orang }} Orang</td>
                     </tr>
                   </table>
 
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-6 text-center">
-                  <h4>No. Antrian</h4>
+                  <h5>No. Antrian</h5>
                   <div class="alert" style="background-color: grey; padding: 10px">
-                    <p style="font-size: 5em">4</p>
+                    <p style="font-size: 4em">{{ $value->no_antrian }}</p>
                   </div>
                 </div>
 
                 <div class="row">
                   <div class="col-sm-12 col-md-12 col-lg-12 text-center">
-                    <h3 style="font-weight: bolder">Total : Rp{{ number_format(100000) }}</h3>
+                    <h3 style="font-weight: bolder">Total : Rp{{ number_format($value->jumlah_orang * $value->layanan->harga_layanan) }}</h3>
                   </div>
                 </div>
 
@@ -109,15 +109,21 @@
 
                 <div class="row">
                   <div class="col-sm-12 col-md-12 col-lg-12 text-center">
-                    <button class="btn btn-success btn-accept">Terima</button> | 
-                    <button class="btn btn-danger btn-denied">Tolak</button>
+
+                    @if($value->status_booking == null)
+                      <button data-pelanggan="{{ $value->pelanggan->name }}" data-id="{{ $value->id }}" class="btn btn-success btn-accept">Terima</button> | 
+                      <button data-pelanggan="{{ $value->pelanggan->name }}" data-id="{{ $value->id }}" class="btn btn-danger btn-denied">Tolak</button>
+                    @elseif($value->status_booking == 'terima')
+                      <button data-pelanggan="{{ $value->pelanggan->name }}" data-id="{{ $value->id }}" class="btn btn-primary btn-finish">Layanan Selesai</button>
+                    @endif
+
                   </div>
                 </div>
 
 
               </div>
             </div>
-
+            @endforeach
         </div>
 
 
@@ -130,8 +136,18 @@
         </div>
     </div>
 
-  <form id="hapus_form" action="" method="POST">
-      @method('DELETE')
+  <form id="tolak_form" action="" method="POST">
+      @method('PUT')
+      @csrf
+  </form>
+
+  <form id="accept_form" action="" method="POST">
+      @method('PUT')
+      @csrf
+  </form>
+
+  <form id="finish_form" action="" method="POST">
+      @method('PUT')
       @csrf
   </form>
 
@@ -211,28 +227,32 @@ var MODULE_CONFIG = {
 <script>
   $("li#data-booking").addClass('active');
 
-  $(".btn-accept").click(() => {
+  var booking = 'rumah';
+
+  $(".btn-accept").click(function() {
 
     var id = $(this).data('id');
-    var nama = $(this).data('nama');
-    var booking = $(this).data('booking');
+    var nama = $(this).data('pelanggan');
     if(!confirm('Terima Booking Pelanggan ' + nama)) return false;
 
-      alert('Booking di terima');
-
+    $('#accept_form').attr('action', "/data-booking/accept/" + id).submit();
   });
 
   $(".btn-denied").click(function() {
 
     var id = $(this).data('id');
-    var nama = $(this).data('nama');
-    var booking = $(this).data('booking');
+    var nama = $(this).data('pelanggan');
     if(!confirm('Tolak Booking Pelanggan ' + nama)) return false;
-
-      alert('Booking di tolak');
       
-      $('#hapus_form').attr('action', "/data-booking/delete/" + booking + "/" + id).submit();
+    $('#tolak_form').attr('action', "/data-booking/denied/" + id).submit();
+  });
 
+  $(".btn-finish").click(function() {
+
+    var id = $(this).data('id');
+    if(!confirm('Layanan sudah selesai ?')) return false;
+      
+    $('#tolak_form').attr('action', "/data-booking/finish/" + id).submit();
   });
 </script>
 @endsection

@@ -70,6 +70,7 @@
                     <th>Alamat</th>
                     <th>No. HP</th>
                     <th>Peta</th>
+                    <th>No. Antrian</th>
                     <th>Status</th>
                     <th>Aksi</th>
                   </tr>
@@ -88,11 +89,12 @@
                         <td>{{ $value->alamat }}</td>
                         <td>{{ $value->pelanggan->no_hp }}</td>
                         <td><a class="btn btn-sm btn-primary" href="https://maps.google.com?q={{$value->lat}},{{$value->lng}}" target="_blank"><i class="material-icons">map</i> Open Map</a></td>
+                        <td>{{ $value->no_antrian }}</td>                        
                         <td>
                           @if($value->status_booking == null or $value->status_booking == '')
                           Menunggu Konfirmasi
                           @else
-                          {{ ($value->status_booking == 'terima' ? 'Di Terima':'Di Tolak') }}
+                          {{ strtoupper($value->status_booking) }}
                           @endif
                         </td>
                         <td>

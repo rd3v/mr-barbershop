@@ -31,6 +31,7 @@ class DatabookingController extends Controller
                 break;
             case 'kapster':
                 $view = 'admin.data_booking.kapster_index';
+                $data_booking_rumah = DataBookingRumah::with('pelanggan','layanan')->where('kapster', Auth::user()->id)->orderBy('id', 'desc')->get();
                 break;
             case 'pelanggan':
                 $view = 'admin.data_booking.pelanggan_index';
@@ -147,6 +148,13 @@ class DatabookingController extends Controller
                 $booking->kapster = $request->kapster_id;
                 $booking->lat = $request->lat;
                 $booking->lng = $request->lng;
+
+                $no_antrian = DataBookingRumah::max('no_antrian');
+                if ($no_antrian == null) {
+                    $booking->no_antrian = 1;
+                } else {
+                    $booking->no_antrian = ($no_antrian + 1);
+                }
 
                 if ($booking->save()) {
                     $kapster = User::find($request->kapster_id);
@@ -326,7 +334,7 @@ class DatabookingController extends Controller
                 ];
 
                 $admin = User::where('level', 'admin')->first();
-                 $telegram_admin = [
+                $telegram_admin = [
                     'chat_id' => $admin->telegram_chat_id,
                     'text' => "Halo ".ucwords($kapster->name).",\npelanggan atas nama ".ucwords($booking_rumah->pelanggan->name)." telah membatalkan pesanan nya.\n\nHarap melakukan konfirmasi ulang kepada pelanggan. Terima kasih",
                 ];
@@ -342,4 +350,76 @@ class DatabookingController extends Controller
             return back();
         }
     }
+
+    public function denied_booking($id) {
+
+        $booking_rumah = DataBookingRumah::find($id);
+
+        $booking_rumah->status_booking = 'tolak';
+        $booking_rumah->no_antrian = null;
+        if ($booking_rumah->save()) {
+    
+            $telegramMessage = new TelegramMessage();
+
+            $telegram_kapster = [
+                'chat_id' => $booking_rumah->pelanggan->telegram_chat_id,
+                'text' => "Halo ".ucwords($booking_rumah->pelanggan->name).",\nkapster ".ucwords(Auth::user()->name)." tidak dapat menerima permintaan booking anda, silahkan mencoba pilih kapster lain. terima kasih",
+            ];
+            
+            $telegramMessage->sendMessage($telegram_kapster);
+
+            return back();
+
+        } else {
+            return back()->with('errors','Terjadi kesalahan, silahkan ulangi lagi atau hubungi admin, terima kasih');
+        }
+
+    }
+
+    public function accept_booking($id) {
+
+        $booking_rumah = DataBookingRumah::find($id);
+
+        $booking_rumah->status_booking = 'terima';
+        if ($booking_rumah->save()) {
+    
+            $telegramMessage = new TelegramMessage();
+
+            $telegram_kapster = [
+                'chat_id' => $booking_rumah->pelanggan->telegram_chat_id,
+                'text' => "Halo ".ucwords($booking_rumah->pelanggan->name).",\nkapster ".ucwords(Auth::user()->name)." telah menerima permintaan layanan anda dan segera menuju ke rumah anda.\nHarap menunggu, terima kasih",
+            ];
+            
+            $telegramMessage->sendMessage($telegram_kapster);
+
+            return back()->with('success', 'Anda telah menerima order booking, harap segera menuju ke rumah pelanggan, terima kasih');
+
+        } else {
+            return back()->with('errors','Terjadi kesalahan, silahkan ulangi lagi atau hubungi admin, terima kasih');
+        }
+    }
+
+    public function finish_booking($id) {
+        $booking_rumah = DataBookingRumah::find($id);
+
+        $booking_rumah->status_booking = 'selesai';
+        $booking_rumah->no_antrian = null;
+        if ($booking_rumah->save()) {
+    
+            $telegramMessage = new TelegramMessage();
+
+            $telegram_kapster = [
+                'chat_id' => $booking_rumah->pelanggan->telegram_chat_id,
+                'text' => "Halo ".ucwords($booking_rumah->pelanggan->name).",\nkapster ".ucwords(Auth::user()->name)." telah selesai melayani anda, semoga anda suka dengan pelayanan kapster ".ucwords(Auth::user()->name).". terima kasih",
+            ];
+            
+            $telegramMessage->sendMessage($telegram_kapster);
+
+            return back();
+
+        } else {
+            return back()->with('errors','Terjadi kesalahan, silahkan ulangi lagi atau hubungi admin, terima kasih');
+        }        
+    }
+
 }

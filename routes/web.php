@@ -31,6 +31,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::put('/data-booking/update/{id}',[\App\Http\Controllers\DatabookingController::class, 'update'])->name('update-data-booking');
     Route::delete('/data-booking/delete/{id}/{booking}',[\App\Http\Controllers\DatabookingController::class, 'destroy'])->name('delete-data-booking');
 
+    Route::put('/data-booking/denied/{id}',[\App\Http\Controllers\DatabookingController::class, 'denied_booking'])->name('denied-booking');
+    Route::put('/data-booking/accept/{id}',[\App\Http\Controllers\DatabookingController::class, 'accept_booking'])->name('accept-booking');
+    Route::put('/data-booking/finish/{id}',[\App\Http\Controllers\DatabookingController::class, 'finish_booking'])->name('finish-booking');
 
     Route::get('/data-kapster',[\App\Http\Controllers\DatakapsterController::class, 'index'])->name('data-kapster');
     Route::get('/data-kapster/tambah',[\App\Http\Controllers\DatakapsterController::class, 'create'])->name('tambah-data-kapster');
@@ -54,4 +57,3 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::delete('/data-laporan/delete/{id}',[\App\Http\Controllers\DatalaporanController::class, 'destroy'])->name('delete-data-laporan');
 
 });
-
