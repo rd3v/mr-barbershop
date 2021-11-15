@@ -163,11 +163,12 @@
                     @foreach($data['booking_rumah'] as $key => $value)
                       <tr>
                         <td>{{ ($key+1) }}</td>
-                        <td>{{ ucwords($value->jenis_layanan) }}</td>
-                        <td>Rp{{ number_format($value->harga_layanan) }}</td>
+                        <td>{{ ucwords($value->pelanggan->name) }}</td>
+                        <td>{{ $value->layanan->jenis_layanan }}</td>
+                        <td>Rp{{ number_format($value->jumlah_orang * $value->layanan->harga_layanan) }}</td>
+                        <td><a href="https://maps.google.com?q={{$value->lat}},{{$value->lng}}" class="btn btn-primary btn-sm" target="_blank">Open Map</a></td>
                         <td>
-                          <a href="{{ route('edit-data-booking',['id' => $value->id]) }}" class="btn btn-primary btn-sm" title="Edit Booking" data-id="{{ $value->id }}"><i class="fa fa-edit"></i></a>
-                          <button class="btn btn-danger btn-sm btn-hapus" title="Hapus" data-booking="{{ $value->jenis_layanan }}" data-id="{{ $value->id }}"><i class="fa fa-trash"></i></button>
+                          <button class="btn btn-danger btn-sm btn-batal" title="Batal" data-id="{{ $value->id }}"><i class="fa fa-remove"></i></button>
                         </td>
                       </tr>
                     @endforeach
@@ -278,5 +279,16 @@ var MODULE_CONFIG = {
       $('#hapus_form').attr('action', "/data-booking/delete/" + booking + "/" + id).submit();
 
   });
+
+  $(".btn-batal").click(function() {
+
+    var id = $(this).data('id');
+    if(!confirm('Batalkan booking ini ?')) return false;
+      
+      console.log('admin action')
+      $('#hapus_form').attr('action', "/data-booking/delete/" + 'rumah' + "/" + id).submit();
+
+  });
+
 </script>
 @endsection
