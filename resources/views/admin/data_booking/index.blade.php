@@ -148,9 +148,11 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Nama</th>
+                    <th>Nama Pelanggan</th>
                     <th>Alamat</th>
                     <th>No. HP</th>
+                    <th style="white-space: nowrap;">Jumlah Orang</th>
+                    <th>Total Bayar</th>
                     <th>Peta</th>
                     <th>Aksi</th>
                   </tr>
@@ -164,7 +166,9 @@
                       <tr>
                         <td>{{ ($key+1) }}</td>
                         <td>{{ ucwords($value->pelanggan->name) }}</td>
-                        <td>{{ $value->layanan->jenis_layanan }}</td>
+                        <td>{{ $value->alamat }}</td>
+                        <td>{{ $value->pelanggan->no_hp }}</td>
+                        <td>{{ $value->jumlah_orang }}</td>
                         <td>Rp{{ number_format($value->jumlah_orang * $value->layanan->harga_layanan) }}</td>
                         <td><a href="https://maps.google.com?q={{$value->lat}},{{$value->lng}}" class="btn btn-primary btn-sm" target="_blank">Open Map</a></td>
                         <td>
