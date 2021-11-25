@@ -81,6 +81,7 @@
                 <tr>
                   <th>No</th>
                   <th>Nama</th>
+                  <th>No.HP</th>
                   <th>Layanan</th>
                   <th>Total Bayar</th>
                   <th>Member</th>
@@ -117,6 +118,7 @@
                         @endif">
                       <td>{{ ($key+1) }}</td>
                       <td>{{ ucwords($value->nama) }}</td>
+                      <td>{{ ($value->no_hp) }}</td>
 
                       <td>{!! $jenis_layanan !!}</td>
                       <td><b>Rp{{ number_format($total_bayar) }}</b></td>                      

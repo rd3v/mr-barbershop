@@ -22,6 +22,8 @@ class DatabookingController extends Controller
      */
     public function index()
     {        
+        $data_booking_tempat = null;
+        $data_booking_rumah = null;
 
         switch (Auth::user()->level) {
             case 'admin':
