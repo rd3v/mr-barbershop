@@ -46,21 +46,10 @@
             <input type="hidden" name="booking" value="tempat">
 
             <div class="form-group row">
-              <label for="member" class="col-sm-2 form-control-label">Status Member</label>
-              <div class="col-sm-10">
-                <select name="member" id="member" class="form-control" onchange="get_member(this.value)" disabled required>
-                  <option value="">== Pilih ==</option>
-                  <option value="1" <?= ($data_booking->member == 1 ? 'selected':'') ?>>Member</option>
-                  <option value="0" <?= ($data_booking->member == 0 ? 'selected':'') ?>>Non-Member</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group row">
               <label for="jenis_layanan" class="col-sm-2 form-control-label">Jenis Layanan</label>
               <div class="col-sm-10">
                   <small style="color: red">*abaikan jika tidak ada pengurangan atau penambahan layanan</small>
-                  <select name="layanan_id[]" id="layanan_id" class="form-control" multiple required>
+                  <select name="layanan_id[]" id="layanan_id" class="form-control" multiple>
                     @foreach($layanan as $value)
                       <option value="{{ $value->id }}">{{ $value->jenis_layanan }} (Rp{{ number_format($value->harga_layanan) }})</option>
                     @endforeach                    

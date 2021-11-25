@@ -84,7 +84,6 @@
                   <th>No.HP</th>
                   <th>Layanan</th>
                   <th>Total Bayar</th>
-                  <th>Member</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
@@ -121,14 +120,7 @@
                       <td>{{ ($value->no_hp) }}</td>
 
                       <td>{!! $jenis_layanan !!}</td>
-                      <td><b>Rp{{ number_format($total_bayar) }}</b></td>                      
-                      <td>
-                        @if($value->member == 1)
-                          Member
-                        @elseif($value->member == 0)
-                          Non Member
-                        @endif
-                      </td>
+                      <td><b>Rp{{ number_format($total_bayar) }}</b></td>
                       <td>
                         <a href="{{ route('edit-data-booking',['booking' => 'tempat','id' => $value->id]) }}" class="btn btn-primary btn-sm" title="Update" data-id="{{ $value->id }}"><i class="fa fa-edit"></i></a>
                         <button class="btn btn-danger btn-sm btn-hapus" title="Hapus" data-nama="{{ $value->nama }}" data-booking="tempat" data-id="{{ $value->id }}"><i class="fa fa-trash"></i></button>

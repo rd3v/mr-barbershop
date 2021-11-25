@@ -118,9 +118,6 @@ class DatabookingController extends Controller
                     $booking->alamat = $request->alamat;
                 }
 
-                $booking->status = 0;
-                $booking->member = $request->member;
-
                 if ($booking->save()) {
 
                     $data_layanan_transaksi_data = [];
@@ -257,39 +254,34 @@ class DatabookingController extends Controller
         switch($request->booking) {
             case 'tempat':
                 $booking = DataBookingTempat::find($id);
-                if ($request->member == 1) {
-                    $booking->users_id = $request->users_id;
-
-                } else if($request->member == 0) {
-                    $booking->nama = $request->nama;
-                    $booking->no_hp = $request->no_hp;
-                    $booking->alamat = $request->alamat;
-                }
-
-                $booking->status = 0;
-                $booking->waktu_tunggu = date('H:i:s', strtotime('now'));
-                $booking->member = $request->member;
+                $booking->users_id = $request->users_id;
+                $booking->nama = $request->nama;
+                $booking->no_hp = $request->no_hp;
+                $booking->alamat = $request->alamat;
 
                 if ($booking->save()) {
 
-                    $DataTransaksiLayanan = DataTransaksiLayanan::where('booking_di_tempat_id', $id)->get();
-                    
-                    // check if layanan not match then drop and re-insert data 
-                    if (count($DataTransaksiLayanan) != count($request->layanan_id)) {
 
-                        for ($i=0; $i < count($DataTransaksiLayanan); $i++) { 
-                            $DataTransaksiLayanan[$i]->delete();
-                         } 
+                    if (isset($request->layanan_id)) {
+                        $DataTransaksiLayanan = DataTransaksiLayanan::where('booking_di_tempat_id', $id)->get();
 
-                        $data_layanan_transaksi_data = [];
-                        for ($i=0; $i < count($request->layanan_id); $i++) { 
-                            $data_layanan_transaksi_data[] = [
-                                'booking_di_tempat_id' => $booking->id,
-                                'layanan_id' => $request->layanan_id[$i]
-                            ];
+                        // check if layanan not match then drop and re-insert data 
+                        if (count($DataTransaksiLayanan) != count($request->layanan_id)) {
+
+                            for ($i=0; $i < count($DataTransaksiLayanan); $i++) { 
+                                $DataTransaksiLayanan[$i]->delete();
+                             } 
+
+                            $data_layanan_transaksi_data = [];
+                            for ($i=0; $i < count($request->layanan_id); $i++) { 
+                                $data_layanan_transaksi_data[] = [
+                                    'booking_di_tempat_id' => $booking->id,
+                                    'layanan_id' => $request->layanan_id[$i]
+                                ];
+                            }
+        
+                            DataTransaksiLayanan::insert($data_layanan_transaksi_data);
                         }
-    
-                        DataTransaksiLayanan::insert($data_layanan_transaksi_data);
                     }
 
                     $message = "Booking di tempat atas nama ".ucwords($request->nama)." telah di update!";

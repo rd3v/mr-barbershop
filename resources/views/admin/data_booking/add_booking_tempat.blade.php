@@ -45,17 +45,6 @@
             <input type="hidden" name="booking" value="tempat">
 
             <div class="form-group row">
-              <label for="member" class="col-sm-2 form-control-label">Status Member</label>
-              <div class="col-sm-10">
-                <select name="member" id="member" class="form-control" onchange="get_member(this.value)" required>
-                  <option value="">== Pilih ==</option>
-                  <option value="1">Member</option>
-                  <option value="0">Non-Member</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group row">
               <label for="jenis_layanan" class="col-sm-2 form-control-label">Jenis Layanan</label>
               <div class="col-sm-10">
                   <select name="layanan_id[]" id="layanan_id" class="form-control" multiple required>
