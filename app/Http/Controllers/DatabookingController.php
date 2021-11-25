@@ -22,11 +22,11 @@ class DatabookingController extends Controller
      */
     public function index()
     {        
-        $data_booking_tempat = DataBookingTempat::with('data_transaksi_layanan')->orderBy('id','desc')->get();
-        $data_booking_rumah = DataBookingRumah::with('pelanggan','layanan')->orderBy('id','desc')->get();
 
         switch (Auth::user()->level) {
             case 'admin':
+                $data_booking_tempat = DataBookingTempat::with('data_transaksi_layanan')->orderBy('id','desc')->get();
+                $data_booking_rumah = DataBookingRumah::with('pelanggan','layanan')->orderBy('id','desc')->get();            
                 $view = 'admin.data_booking.index';
                 break;
             case 'kapster':
@@ -34,6 +34,8 @@ class DatabookingController extends Controller
                 $data_booking_rumah = DataBookingRumah::with('pelanggan','layanan')->where('kapster', Auth::user()->id)->orderBy('id', 'desc')->get();
                 break;
             case 'pelanggan':
+                $data_booking_tempat = DataBookingTempat::with('data_transaksi_layanan')->where('users_id', Auth::user()->id)->orderBy('id','desc')->get();
+                $data_booking_rumah = DataBookingRumah::with('pelanggan','layanan')->where('users_id', Auth::user()->id)->orderBy('id','desc')->get();            
                 $view = 'admin.data_booking.pelanggan_index';
                 break;
             
