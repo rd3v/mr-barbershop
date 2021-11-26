@@ -34,7 +34,6 @@
   <div class="box">
     <div class="box-header">
       <h2 style="display:inline"><b>My Booking</b></h2>&nbsp;
-<a href="{{ url('/data-booking/tambah/tempat') }}" class="btn btn-success btn-sm" style="color: white;">+Tambah Booking</a>      
     </div>
     <br>
     <div class="table-responsive">
@@ -59,7 +58,101 @@
 
       <div class="col-sm-12 col-md-12 col-lg-12">
 
+          <div class="b-b b-primary nav-active-primary">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" href="" data-toggle="tab" data-target="#tab_booking_di_tempat">Booking di Tempat</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="" data-toggle="tab" data-target="#tab_booking_ke_rumah">Booking di Rumah</a>
+            </li>
+          </ul>
+        </div>
+        <div class="tab-content p-a m-b-md">
+          <div class="tab-pane animated fadeIn text-muted active" id="tab_booking_di_tempat">
+
+            <a href="{{ url('/data-booking/tambah/tempat') }}" class="btn btn-success btn-md" style="color: white; margin: 10px">+Tambah Booking</a>
+        
+            <div class="table-responsive">
+              
+              <table ui-jp="dataTable" class="table">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Layanan</th>
+                    <th>Total Bayar</th>
+                    <th>Waktu Booking</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <?php
+                  $count = count($data['booking_rumah']);
+                ?>
+                <tbody class="<?php if($count == 0) echo 'text-center'; ?>">
+                  @if($count > 0)
+                    @foreach($data['booking_tempat'] as $key => $value)
+                      @php
+                        $jenis_layanan = "";
+                        
+                        $total_bayar = 0;
+                        
+                        $tanggal_temp = explode(' ', $value->created_at);
+                        $tanggal_temp_date_only = explode('-', $tanggal_temp[0]);
+                        $tanggal = $tanggal_temp_date_only[2]."-".$tanggal_temp_date_only[1]."-".$tanggal_temp_date_only[0];
+
+                        $waktu = $tanggal_temp[1];
+
+                      @endphp
+                      @foreach($value->data_transaksi_layanan as $key2 => $transaksi_layanan)
+                        @php
+                          $total_bayar += $transaksi_layanan->layanan->harga_layanan;
+                          $jenis_layanan .= $transaksi_layanan->layanan->jenis_layanan." - <b>Rp".number_format($transaksi_layanan->layanan->harga_layanan)."</b>";
+                        @endphp
+                          @if (($key2 + 1) != count($value->data_transaksi_layanan))
+                            @php
+                              $jenis_layanan .= ",<br> ";
+                            @endphp
+                          @endif
+                      @endforeach
+
+                      <tr>
+                        <td>{{ ($key+1) }}</td>
+                        <td>{!! $jenis_layanan !!}</td>
+                        <td><b>Rp{{ number_format($total_bayar) }}</b></td>
+                        <td>{{ $tanggal." ".$waktu }}</td>
+                        <td>
+                        @if($value->status == 0)
+                          Dalam Antrian
+                        @elseif($value->status == 1)
+                          On Service
+                        @elseif($value->status == 2)
+                          Selesai
+                        @endif
+                        </td>
+                        <td>
+
+                        @if($value->status_booking == null or $value->status_booking == '')
+                          <button class="btn btn-danger btn-sm btn-batal" title="Batalkan Booking" data-id="{{ $value->id }}"><i class="fa fa-remove"></i></button>
+                        @endif
+
+                        </td>
+                      </tr>
+                    @endforeach
+                  @endif
+                </tbody>
+              </table>
+
+            </div>
+
+          </div>
+          <div class="tab-pane animated fadeIn text-muted" id="tab_booking_ke_rumah">
+
+            <a href="{{ url('/data-booking/tambah/rumah') }}" class="btn btn-success btn-md" style="color: white;margin: 10px">+Tambah Booking</a>    
+
             <div class="table-responsive">      
+            
+            
               <table ui-jp="dataTable" class="table">
                 <thead>
                   <tr>
@@ -111,6 +204,9 @@
               </table>
             </div>
 
+
+          </div>
+        </div>
 
 
       </div>
@@ -204,12 +300,12 @@ var MODULE_CONFIG = {
   $("li#data-booking").addClass('active');
 
   $(".btn-batal").click(function() {
-
+    
     var id = $(this).data('id');
     if(!confirm('Batalkan booking ini ?')) return false;
       
       console.log('pelanggan action')
-      $('#hapus_form').attr('action', "/data-booking/delete/" + 'rumah' + "/" + id).submit();
+      $('#hapus_form').attr('action', "/data-booking/delete/" + 'tempat' + "/" + id).submit();
 
   });
 </script>

@@ -49,7 +49,7 @@
               <label for="jenis_layanan" class="col-sm-2 form-control-label">Jenis Layanan</label>
               <div class="col-sm-10">
                   <small style="color: red">*abaikan jika tidak ada pengurangan atau penambahan layanan</small>
-                  <select name="layanan_id[]" id="layanan_id" class="form-control" multiple>
+                  <select name="layanan_id[]" id="layanan_id" class="form-control" multiple readonly>
                     @foreach($layanan as $value)
                       <option value="{{ $value->id }}">{{ $value->jenis_layanan }} (Rp{{ number_format($value->harga_layanan) }})</option>
                     @endforeach                    
@@ -60,21 +60,25 @@
             <div class="form-group row">
               <label for="nama" class="col-sm-2 form-control-label">Nama</label>
               <div class="col-sm-10">
-                <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama" value="{{ $data_booking->nama }}" required>
+                <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama" value="{{ $data_booking->nama }}" required readonly>
               </div>
             </div>
 
             <div class="form-group row">
               <label for="no_hp" class="col-sm-2 form-control-label">No. HP</label>
               <div class="col-sm-10">
-                <input type="number" name="no_hp" class="form-control" id="no_hp" value="{{ $data_booking->no_hp }}" placeholder="Masukkan Nomor HP">
+                <input type="number" name="no_hp" class="form-control" id="no_hp" value="{{ $data_booking->no_hp }}" placeholder="Masukkan Nomor HP" required readonly>
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="alamat" class="col-sm-2 form-control-label">Alamat</label>
+              <label for="status" class="col-sm-2 form-control-label">Status</label>
               <div class="col-sm-10">
-                <input type="text" name="alamat" class="form-control" id="alamat" value="{{ $data_booking->alamat }}" placeholder="Masukkan Alamat">
+                  <select name="status" id="status" class="form-control" required>
+                    <option value="0" {{ ($data_booking->status == 0 ? 'selected':'') }}>Dalam Antrian</option>
+                    <option value="1" {{ ($data_booking->status == 1 ? 'selected':'') }}>On Service</option>
+                    <option value="2" {{ ($data_booking->status == 2 ? 'selected':'') }}>Selesai</option>
+                  </select>
               </div>
             </div>
 

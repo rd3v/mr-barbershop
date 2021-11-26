@@ -27,7 +27,7 @@ class DatabookingController extends Controller
 
         switch (Auth::user()->level) {
             case 'admin':
-                $data_booking_tempat = DataBookingTempat::with('data_transaksi_layanan')->orderBy('id','desc')->get();
+                $data_booking_tempat = DataBookingTempat::with('data_transaksi_layanan')->orderBy('id','asc')->where('status', '!=', 2)->get();
                 $data_booking_rumah = DataBookingRumah::with('pelanggan','layanan')->orderBy('id','desc')->get();            
                 $view = 'admin.data_booking.index';
                 break;
@@ -82,14 +82,27 @@ class DatabookingController extends Controller
             $data = ['layanan' => $data_layanan];
 
         } else if($level == 'pelanggan') {
-            $view = 'admin.data_booking.pelanggan_add_booking_rumah';
-            $data_layanan = DataLayanan::where('jenis_layanan','Potong Rambut')->first();
-            $kapster = User::where('level', 'kapster')->get();
 
-            $data = [
-                'layanan' => $data_layanan,
-                'kapster' => $kapster
-            ];
+            switch ($kode) {
+                case 'tempat':
+                    $view = 'admin.data_booking.pelanggan_add_booking_tempat';
+                    $data_layanan = DataLayanan::select('id','jenis_layanan','harga_layanan')->get();
+                    $data = ['layanan' => $data_layanan];
+                    break;
+                case 'rumah':
+                    $view = 'admin.data_booking.pelanggan_add_booking_rumah';
+                    $data_layanan = DataLayanan::where('jenis_layanan','Potong Rambut')->first();
+                    $kapster = User::where('level', 'kapster')->get();
+                    $data = [
+                        'layanan' => $data_layanan,
+                        'kapster' => $kapster
+                    ];
+                    break;
+                default:
+                    $view = 'admin.data_booking.pelanggan_add_booking_tempat';
+                    break;
+            }
+
         }
 
         return view($view, [
@@ -109,14 +122,16 @@ class DatabookingController extends Controller
         switch($request->booking) {
             case 'tempat':
                 $booking = new DataBookingTempat;
-                if ($request->member == 1) {
-                    $booking->users_id = $request->users_id;
 
-                } else if($request->member == 0) {
-                    $booking->nama = $request->nama;
-                    $booking->no_hp = $request->no_hp;
-                    $booking->alamat = $request->alamat;
+                $level = Auth::user()->level;
+                if ($level == 'pelanggan') {
+                    $booking->users_id = Auth::user()->id;
                 }
+
+                $booking->nama = $request->nama;
+                $booking->no_hp = $request->no_hp;
+                $booking->alamat = $request->alamat;
+                $booking->status = 0;
 
                 if ($booking->save()) {
 
@@ -129,10 +144,15 @@ class DatabookingController extends Controller
                         ];
 
                     }
-
+                                        
                     DataTransaksiLayanan::insert($data_layanan_transaksi_data);
 
-                    $message = "Booking di tempat atas nama ".ucwords($request->nama)." telah di tambahkan!";
+                    if ($level == 'pelanggan') {
+                        $message = "Booking di tempat berhasil, silahkan menuju ke Mr.Barber untuk mendapatkan layanan anda";
+                    } else if($level == 'admin') {
+                        $message = "Layanan di tempat atas nama ".ucwords($request->nama)." telah di tambahkan!";
+                    }
+
                     return redirect('/data-booking')->with(['success' => $message]);
                  } else {
                     $message = "Gagal menambahkan Booking di Tempat";
@@ -254,10 +274,10 @@ class DatabookingController extends Controller
         switch($request->booking) {
             case 'tempat':
                 $booking = DataBookingTempat::find($id);
-                $booking->users_id = $request->users_id;
                 $booking->nama = $request->nama;
                 $booking->no_hp = $request->no_hp;
                 $booking->alamat = $request->alamat;
+                $booking->status = $request->status;
 
                 if ($booking->save()) {
 
@@ -309,6 +329,7 @@ class DatabookingController extends Controller
      */
     public function destroy($booking, $id)
     {
+
         if ($booking == "tempat") {
             $booking_tempat = DataBookingTempat::find($id);
             $booking_tempat->delete();

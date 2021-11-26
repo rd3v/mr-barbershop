@@ -84,6 +84,8 @@
                   <th>No.HP</th>
                   <th>Layanan</th>
                   <th>Total Bayar</th>
+                  <th>Waktu Booking</th>
+                  <th>Status</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
@@ -96,6 +98,12 @@
                       @php
                         $jenis_layanan = "";
                         $total_bayar = 0;
+                        $tanggal_temp = explode(' ', $value->created_at);
+                        $tanggal_temp_date_only = explode('-', $tanggal_temp[0]);
+                        $tanggal = $tanggal_temp_date_only[2]."-".$tanggal_temp_date_only[1]."-".$tanggal_temp_date_only[0];
+
+                        $waktu = $tanggal_temp[1];
+
                       @endphp
                     @foreach($value->data_transaksi_layanan as $key2 => $transaksi_layanan)
                       @php
@@ -108,12 +116,8 @@
                           @endphp
                         @endif
                     @endforeach
-                    <tr class="@if($value->status == 0)
-                      table-warning
-                        @elseif($value->status == 1)
-                      table-primary
-                        @elseif($value->status == 2)
-                      table-success
+                    <tr class="@if($value->users_id != 0)
+                      table-info
                         @endif">
                       <td>{{ ($key+1) }}</td>
                       <td>{{ ucwords($value->nama) }}</td>
@@ -121,6 +125,14 @@
 
                       <td>{!! $jenis_layanan !!}</td>
                       <td><b>Rp{{ number_format($total_bayar) }}</b></td>
+                      <td>{{ $tanggal." ".$waktu }}</td>
+                      <td>
+                        @if($value->status == 0)
+                          Dalam Antrian
+                        @elseif($value->status == 1)
+                          On Service
+                        @endif
+                      </td>
                       <td>
                         <a href="{{ route('edit-data-booking',['booking' => 'tempat','id' => $value->id]) }}" class="btn btn-primary btn-sm" title="Update" data-id="{{ $value->id }}"><i class="fa fa-edit"></i></a>
                         <button class="btn btn-danger btn-sm btn-hapus" title="Hapus" data-nama="{{ $value->nama }}" data-booking="tempat" data-id="{{ $value->id }}"><i class="fa fa-trash"></i></button>

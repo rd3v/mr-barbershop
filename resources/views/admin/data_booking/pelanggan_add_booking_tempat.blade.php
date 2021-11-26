@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-  Data Booking di Tempat | Tambah
+  Booking di Tempat
 @endsection
 
 @section('css')
@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="{{ asset('themes/dashboard/v1/assets/styles/app.css') }}" type="text/css" />
   <!-- endbuild -->
   <link rel="stylesheet" href="{{ asset('themes/dashboard/v1/assets/styles/font.css') }}" type="text/css" />
-
 @endsection
 
 @section('style')
@@ -58,21 +57,14 @@
             <div class="form-group row">
               <label for="nama" class="col-sm-2 form-control-label">Nama</label>
               <div class="col-sm-10">
-                <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama" required>
+                <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama" value="{{ Auth::user()->name }}" required readonly>
               </div>
             </div>
 
             <div class="form-group row">
               <label for="no_hp" class="col-sm-2 form-control-label">No. HP</label>
               <div class="col-sm-10">
-                <input type="number" name="no_hp" class="form-control" id="no_hp" placeholder="Masukkan Nomor HP">
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="alamat" class="col-sm-2 form-control-label">Alamat</label>
-              <div class="col-sm-10">
-                <input type="text" name="alamat" class="form-control" id="alamat" placeholder="Masukkan Alamat">
+                <input type="number" name="no_hp" class="form-control" id="no_hp" value="{{ Auth::user()->no_hp }}" placeholder="Masukkan Nomor HP" required readonly>
               </div>
             </div>
 
@@ -122,26 +114,32 @@
   <!-- ajax -->
   <script src="{{ asset('themes/dashboard/v1/libs/jquery/jquery-pjax/jquery.pjax.js') }}"></script>
   <script src="{{ asset('themes/dashboard/v1/scripts/ajax.js') }}"></script>
-<!-- endbuild -->
-  <script>
-    (function ($) {
-      "use strict";
-        
-      uiLoad.load("{{ asset('themes/dashboard/v1/libs/jquery/screenfull/dist/screenfull.min.js') }}");
-      $(document).on('click', '[ui-fullscreen]', function (e) {
-        e.preventDefault();
-        if (screenfull.enabled) {
-          screenfull.toggle();
-        }
-      });
-
-    })(jQuery);    
-  </script>
 @endsection
 
 @section('script')
 <script>
-  $("li#data-booking").addClass('active');
+  $(document).ready(function() {
+    $("li#data-booking").addClass('active');
+  });
+
+
+  function get_member(member) {
+    if (member == 1) {
+      ajaxSetup();
+      $.ajax({
+        url:"{{ url('get-member') }}",
+        type:"post",
+        data:{},
+        dataType:"json"
+      }).done(function(res) {
+        console.log(res);
+      }).fail(function(res) {
+        console.log(res);
+      });
+    } else if(member == 0) {
+      console.log('Non Member');
+    }
+  }
 
   function ajaxSetup() {
       $.ajaxSetup({
