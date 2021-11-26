@@ -49,7 +49,7 @@
               <label for="jenis_layanan" class="col-sm-2 form-control-label">Jenis Layanan</label>
               <div class="col-sm-10">
                   <small style="color: red">*abaikan jika tidak ada pengurangan atau penambahan layanan</small>
-                  <select name="layanan_id[]" id="layanan_id" class="form-control" multiple readonly>
+                  <select name="layanan_id[]" id="layanan_id" class="form-control" multiple>
                     @foreach($layanan as $value)
                       <option value="{{ $value->id }}">{{ $value->jenis_layanan }} (Rp{{ number_format($value->harga_layanan) }})</option>
                     @endforeach                    
