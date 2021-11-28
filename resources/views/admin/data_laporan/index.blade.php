@@ -57,6 +57,97 @@
       @endif
 
       {{-- data laporan --}}
+      <div class="table-responsive">      
+        <table class="table table-striped">
+          <tr>
+            <th class="text-center" colspan="7">{{ strtoupper("Laporan Berdasarkan Metode Waiting Line")}}</th>
+          </tr>
+          <tr>
+            <th colspan="2"><p>Perkiraan Jam Sibuk di Mr. Barber</p></th>
+            <td colspan="2"><p>16.00 - 17.00 dan 19.00 - 20.00</p></td>
+            <td colspan="3"></td>
+          </tr>
+          <tr>
+            <th colspan="2"><p>Tanggal tersibuk</p></th>
+            <td colspan="2">
+              @php
+                $temp_tgl = explode("-", $rata_rata_pelanggan_datang['tanggal']);
+                $tanggal = $temp_tgl[2]." / ".$temp_tgl[1]." / ".$temp_tgl[0];
+              @endphp
+              <p>{{ $tanggal }}, <b>Jumlah</b> {{ $rata_rata_pelanggan_datang['jumlah'] }} Orang</p>
+            </td>
+            <td colspan="3"></td>
+          </tr>
+          <tr>
+            <td colspan="2">Jam 16.00 - 17.00</td>
+            <td colspan="2"><input placeholder="Input Jumlah Pelanggan" type="text" class="form-control" id="jam_empat_lima_sore"></td>
+            <td colspan="3"></td>
+          </tr>
+          <tr>
+            <td colspan="2">Jam 19.00 - 20.00</td>
+            <td colspan="2"><input placeholder="Input Jumlah Pelanggan" type="text" class="form-control" id="jam_tujuh_delapan_malam"></td>
+            <td colspan="3"></td>
+          </tr>
+          <tr>
+            <td colspan="2">Rata - rata pelanggan yang datang</td>
+            <td colspan="2"><input readonly type="number" id="rata_rata" class="form-control"></td>
+            <td colspan="3">Average()</td>
+          </tr>
+          <tr><td colspan="7"></td></tr>
+          <tr>
+            <th>Parameter</th>
+            <th>Nilai</th>
+            <th></th>
+            <th>Parameter</th>
+            <th>Nilai</th>
+            <th>Menit</th>
+            <th>Detik</th>
+          </tr>
+          <tr>
+            <td>M/M/s</td>
+            <td></td>
+            <td></td>
+            <td>Tingkat intensitas fasilitas pelayanan <b>(P)</b></td>
+            <td><span id="p">0</span></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>λ (jumlah rata-rata tingkat kedatangan )</td>
+            <td><span id="jumlah_rata_rata_tingkat_kedatangan"></span></td>
+            <td></td>
+            <td>Jumlah kedatangan pelanggan yang diharapkan menunggu dalam Waiting Line <b>(Lq)</b></td>
+            <td><span id="lq">0</span></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>µ (melayani rata-rata pelanggan )</td>
+            <td><input type="number" class="form-control" id="melayani_rata_rata_pelanggan" value="0"></td>
+            <td></td>
+            <td>Jumlah rata-rata kedatangan pelanggan yang diharapkan dalam sistem <b>(L)</b></td>
+            <td><span id="l">0</span></td>
+            <td><span id="l_menit">0</span></td>
+            <td><span id="l_detik">0</span></td>
+          </tr>
+          <tr>
+            <td>s (jumlah fasilitas pelayanan (server))</td>
+            <td><input type="number" class="form-control" id="jumlah_fasilitas_pelayanan" value="0"></td>
+            <td></td>
+            <td>Waktu yang diharapkan oleh setiap kedatangan pelanggan untuk menunggu dalam Waiting Line <b>(Wq)</b></td>
+            <td><span id="wq">0</span></td>
+            <td><span id="wq_menit">0</span></td>
+            <td><span id="wq_detik">0</span></td>
+          </tr>
+          <tr>
+            <td colspan="3"></td>
+            <td>Waktu yang diharapkan oleh setiap kedatangan pelanggan selama dalam sistem / menunggu dalam pelayanan <b>(W)</b></td>
+            <td><span id="w">0</span></td>
+            <td><span id="w_menit">0</span></td>
+            <td><span id="w_detik">0</span></td>
+          </tr>
+        </table>
+      </div>
 
     </div>
   </div>
@@ -64,11 +155,6 @@
 
         </div>
     </div>
-
-  <form id="hapus_form" action="" method="POST">
-      @method('DELETE')
-      @csrf
-  </form>
 
 </div>
 @endsection
@@ -146,14 +232,40 @@ var MODULE_CONFIG = {
 <script>
   $("li#data-laporan").addClass('active');
 
-  $(".btn-hapus").click(function() {
+  $("#jam_empat_lima_sore").on('input', function() {
+    var nilai = parseInt($(this).val());
+    var nilai2 = parseInt($("#jam_tujuh_delapan_malam").val());
+    var hasil = (nilai + nilai2) / 2;
+    $("input#rata_rata").val(hasil);
+    $("#jumlah_rata_rata_tingkat_kedatangan").html(Math.round(hasil));
+  });
 
-    var id = $(this).data('id');
-    var jenis_layanan = $(this).data('jenis_layanan');
-    if(!confirm('Hapus Layanan ' + jenis_layanan)) return false;
+  var hasil = 0
+  $("#jam_tujuh_delapan_malam").on('input', function() {
+    var nilai = parseInt($(this).val());
+    var nilai2 = parseInt($("#jam_empat_lima_sore").val());
+    hasil = (nilai + nilai2) / 2;
+    $("input#rata_rata").val(hasil);
+    $("#jumlah_rata_rata_tingkat_kedatangan").html(Math.round(hasil));
+  });
 
-      $('#hapus_form').attr('action', "/data-laporan/delete/" + id).submit();
+  $("input#melayani_rata_rata_pelanggan").on('input', function() {
+    var nilai = parseInt($(this).val());
+    var tingkat_intensitas_fasilitas_pelayanan = (nilai / hasil).toFixed(2);
+
+    $("span#p").html(tingkat_intensitas_fasilitas_pelayanan);
+    
+    var jumlah_rata_rata_tingkat_kedatangan = parseInt($("input#jumlah_rata_rata_tingkat_kedatangan").val());
+    var melayani_rata_rata_pelanggan = parseInt($("input#melayani_rata_rata_pelanggan").val());
+
+    var lq = ((hasil ^ 2) / melayani_rata_rata_pelanggan * (melayani_rata_rata_pelanggan - hasil)).toFixed(0);
+    $("span#lq").html(lq);
+
+    var l = parseInt(tingkat_intensitas_fasilitas_pelayanan + lq);
+    $("span#l").html(l);
+
 
   });
+
 </script>
 @endsection
