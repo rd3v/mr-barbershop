@@ -91,7 +91,7 @@ class DatabookingController extends Controller
                     break;
                 case 'rumah':
                     $view = 'admin.data_booking.pelanggan_add_booking_rumah';
-                    $data_layanan = DataLayanan::where('jenis_layanan','Potong Rambut')->first();
+                    $data_layanan = DataLayanan::find(1);
                     $kapster = User::where('level', 'kapster')->get();
                     $data = [
                         'layanan' => $data_layanan,
