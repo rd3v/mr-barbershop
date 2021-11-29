@@ -26,6 +26,15 @@
             </div>
 
             <div class="mt-4">
+                <x-jet-label for="jenis_kelamin" value="{{ __('No. HP') }}" />
+                <select name="jenis_kelamin" id="jenis_kelamin" style="width: 100%" class="form-control" required>
+                    <option value="">== Pilih ==</option>
+                    <option value="laki - laki">Laki - laki</option>
+                    <option value="perempuan">Perempuan</option>
+                </select>
+            </div>
+
+            <div class="mt-4">
                 <x-jet-label for="email" value="{{ __('Email') }}" />
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>

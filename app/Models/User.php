@@ -30,6 +30,7 @@ class User extends Authenticatable
         'name',
         'username',
         'no_hp',
+        'jenis_kelamin',
         'email',
         'password',
         'level',
