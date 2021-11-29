@@ -56,4 +56,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::put('/data-laporan/update/{id}',[\App\Http\Controllers\DatalaporanController::class, 'update'])->name('update-data-laporan');
     Route::delete('/data-laporan/delete/{id}',[\App\Http\Controllers\DatalaporanController::class, 'destroy'])->name('delete-data-laporan');
 
+    Route::get('/perhitungan-waiting-line',[\App\Http\Controllers\PerhitunganController::class, 'index'])->name('perhitungan-waiting-line');
+
+
 });

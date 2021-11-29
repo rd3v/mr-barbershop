@@ -134,6 +134,17 @@
                   <span class="nav-text">Laporan</span>
                 </a>
               </li>
+
+              <li id="perhitungan-waiting-line">
+                <a href="{{ url('/perhitungan-waiting-line') }}" >
+                  <span class="nav-icon">
+                    <i class="material-icons">&#xe85d;
+                      <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span>
+                    </i>
+                  </span>
+                  <span class="nav-text">Perhitungan Waiting Line</span>
+                </a>
+              </li>
               @endif
                     
             </ul>
