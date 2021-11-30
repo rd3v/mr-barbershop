@@ -133,7 +133,7 @@
                         <td>
 
                         @if($value->status_booking == null or $value->status_booking == '')
-                          <button class="btn btn-danger btn-sm btn-batal" title="Batalkan Booking" data-id="{{ $value->id }}"><i class="fa fa-remove"></i></button>
+                          <button data-booking="tempat" class="btn btn-danger btn-sm btn-batal" title="Batalkan Booking" data-id="{{ $value->id }}"><i class="fa fa-remove"></i></button>
                         @endif
 
                         </td>
@@ -193,7 +193,7 @@
                         <td>
 
                         @if($value->status_booking == null or $value->status_booking == '')
-                          <button class="btn btn-danger btn-sm btn-batal" title="Batalkan Booking" data-id="{{ $value->id }}"><i class="fa fa-remove"></i></button>
+                          <button data-booking="rumah" class="btn btn-danger btn-sm btn-batal" title="Batalkan Booking" data-id="{{ $value->id }}"><i class="fa fa-remove"></i></button>
                         @endif
 
                         </td>
@@ -302,10 +302,10 @@ var MODULE_CONFIG = {
   $(".btn-batal").click(function() {
     
     var id = $(this).data('id');
+    var booking = $(this).data('booking');
     if(!confirm('Batalkan booking ini ?')) return false;
-      
-      console.log('pelanggan action')
-      $('#hapus_form').attr('action', "/data-booking/delete/" + 'tempat' + "/" + id).submit();
+
+      $('#hapus_form').attr('action', "/data-booking/delete/" + booking + "/" + id).submit();
 
   });
 </script>

@@ -29,7 +29,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::post('/data-booking/store',[\App\Http\Controllers\DatabookingController::class, 'store'])->name('submit-data-booking');
     Route::get('/data-booking/edit/{booking}/{id}',[\App\Http\Controllers\DatabookingController::class, 'edit'])->name('edit-data-booking');
     Route::put('/data-booking/update/{id}',[\App\Http\Controllers\DatabookingController::class, 'update'])->name('update-data-booking');
-    Route::delete('/data-booking/delete/{id}/{booking}',[\App\Http\Controllers\DatabookingController::class, 'destroy'])->name('delete-data-booking');
+    Route::delete('/data-booking/delete/{booking}/{id}',[\App\Http\Controllers\DatabookingController::class, 'destroy'])->name('delete-data-booking');
 
     Route::put('/data-booking/denied/{id}',[\App\Http\Controllers\DatabookingController::class, 'denied_booking'])->name('denied-booking');
     Route::put('/data-booking/accept/{id}',[\App\Http\Controllers\DatabookingController::class, 'accept_booking'])->name('accept-booking');
