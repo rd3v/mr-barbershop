@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\DataBookingTempat;
+use App\Models\DataBookingRumah;
 use App\Models\User;
 
 class DashboardController extends Controller
@@ -15,9 +16,15 @@ class DashboardController extends Controller
         $jumlah_user = User::where('level', 'pelanggan')->count();
         $jumlah_booking_di_tempat = DataBookingTempat::count();
 
+        $dbk = DataBookingTempat::where('status',2)->count();
+        $dbr = DataBookingRumah::where('status_booking',null)->count();
+        $selesai = $dbk + $dbr;
+
         $data = [
             'jumlah_user' => $jumlah_user,
-            'jumlah_booking_di_tempat' => $jumlah_booking_di_tempat
+            'antrian_di_tempat' => $dbk,
+            'antrian_ke_rumah' => $dbr,
+            'selesai' => $selesai
         ];
         return view('admin.dashboard', ['data' => $data]);
     }

@@ -50,8 +50,8 @@
                         <i class="fa fa-cut text-2x text-info m-y-sm"></i>
                       </div>
                       <div class="clear">
-                        <div class="text-muted">Transaksi</div>
-                        <h4 class="m-a-0 text-md _600"><a href>0</a></h4>
+                        <div class="text-muted">Antrian di Tempat</div>
+                        <h4 class="m-a-0 text-md _600"><a href>{{ $data['antrian_di_tempat'] }}</a></h4>
                       </div>
                     </div>
                 </div>
@@ -63,8 +63,8 @@
                     </i>
                       </div>
                       <div class="clear">
-                        <div class="text-muted">Booking ke Rumah</div>
-                        <h4 class="m-a-0 text-md _600"><a href>0</a></h4>
+                        <div class="text-muted">Antrian ke Rumah</div>
+                        <h4 class="m-a-0 text-md _600"><a href>{{ $data['antrian_ke_rumah'] }}</a></h4>
                       </div>
                     </div>
                 </div>
@@ -76,8 +76,8 @@
                     </i>
                       </div>
                       <div class="clear">
-                        <div class="text-muted">Service on Barber</div>
-                        <h4 class="m-a-0 text-md _600"><a href="{{ url('/data-booking') }}" style="cursor: pointer;">{{ $data['jumlah_booking_di_tempat'] }}</a></h4>
+                        <div class="text-muted">Selesai</div>
+                        <h4 class="m-a-0 text-md _600"><a href="{{ url('/data-booking') }}" style="cursor: pointer;">{{ $data['selesai'] }}</a></h4>
                       </div>
                     </div>
                 </div>
