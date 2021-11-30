@@ -12,11 +12,11 @@ class DataTransaksi extends Model
     protected $table = 'data_transaksi';
 
     protected $fillable = [
-        'id', 'booking_tempat_id', 'booking_rumah_id', 'total'
+        'id', 'booking_tempat_id', 'booking_rumah_id', 'total', 'created_at'
     ];
 
     protected $hidden = [
-        'created_at', 'updated_at'
+        'updated_at'
     ];
 
     public function booking_di_tempat() {

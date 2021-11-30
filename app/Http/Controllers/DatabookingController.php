@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DataBookingTempat;
 use App\Models\DataBookingRumah;
 use App\Models\DataLayanan;
+use App\Models\DataTransaksi;
 use App\Models\DataTransaksiLayanan;
 use App\Models\User;
 
@@ -281,6 +282,17 @@ class DatabookingController extends Controller
 
                 if ($booking->save()) {
 
+                    if ($request->status == 2) {
+                        $total = 0;
+                        $dtl = DataTransaksiLayanan::where('booking_di_tempat_id', $booking->id)->get();
+                        foreach($dtl as $value) {
+                            $total += $value->layanan->harga_layanan;
+                        }
+                        $data_transaksi = new DataTransaksi;
+                        $data_transaksi->booking_tempat_id = $booking->id;
+                        $data_transaksi->total = $total;
+                        $data_transaksi->save();
+                    }
 
                     if (isset($request->layanan_id)) {
                         $DataTransaksiLayanan = DataTransaksiLayanan::where('booking_di_tempat_id', $id)->get();

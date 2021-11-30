@@ -87,7 +87,7 @@
                   </tr>
                 </thead>
                 <?php
-                  $count = count($data['booking_rumah']);
+                  $count = count($data['booking_tempat']);
                 ?>
                 <tbody class="<?php if($count == 0) echo 'text-center'; ?>">
                   @if($count > 0)

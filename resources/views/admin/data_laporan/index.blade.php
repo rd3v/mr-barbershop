@@ -71,15 +71,19 @@
       <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
           <table class="table table-striped">
-            <tr>
-              <th>No.</th>
-              <th>Tanggal</th>
-              <th>Transaksi</th>
-              <th>Pemasukan</th>
-            </tr>
-            <tr>
-              <td colspan="4" class="text-center">Silahkan pilih tanggal untuk melihat transaksi</td>
-            </tr>
+            <thead>            
+              <tr>
+                <th>No.</th>
+                <th>Tanggal</th>
+                <th>Jumlah Transaksi</th>
+                <th>Pemasukan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="4" class="text-center">Silahkan pilih tanggal untuk melihat transaksi</td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
@@ -152,5 +156,74 @@ var MODULE_CONFIG = {
 @section('script')
 <script>
   $("li#data-laporan").addClass('active');
+  
+  var tanggal_mulai = null;
+  var tanggal_akhir = null;
+
+  $("#tanggal_mulai").change(function() {
+    var tm = $(this);
+    tanggal_mulai = tm.val();
+    if((tanggal_mulai != null || tanggal_mulai != "") && (tanggal_akhir != null || tanggal_akhir != "")) {
+      var tanggal = {
+        tanggal_mulai:tanggal_mulai,
+        tanggal_akhir:tanggal_akhir
+      };
+      getLaporan(tanggal);
+    } 
+  });
+  $("#tanggal_akhir").change(function() {
+    var ta = $(this);
+    tanggal_akhir = ta.val();
+    if((tanggal_mulai != null || tanggal_mulai != "") && (tanggal_akhir != null || tanggal_akhir != "")) {
+      var tanggal = {
+        tanggal_mulai:tanggal_mulai,
+        tanggal_akhir:tanggal_akhir
+      };
+      getLaporan(tanggal);
+    }
+  });
+
+  function getLaporan(tanggal = {}) {
+
+    ajaxSetup();
+    $.ajax({
+      url:"{{ url('api/get_laporan') }}",
+      type:"post",
+      data: tanggal,
+      dataType:"json"
+    }).done(function(res) {
+      if(res.response.data.laporan.transaksi.length > 0) {
+        var tbody = "";
+        for(var i = 0; i < res.response.data.laporan.transaksi.length; i++) {
+          let tanggal = res.response.data.laporan.transaksi[i].tanggal.split("-");
+          tbody += "<tr>";
+          tbody += "<td>" + (i+1) + "</td>";
+          tbody += "<td>" + tanggal[2] + " / " + tanggal[1] + " / " + tanggal[0] + "</td>";
+          tbody += "<td>" + res.response.data.laporan.transaksi[i].jumlah_transaksi + "</td>";
+          tbody += "<td>Rp" + (res.response.data.laporan.transaksi[i].total).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,") + "</td>";
+          tbody += "</tr>";
+        } 
+
+      } else {
+          tbody += "<tr>";
+          tbody += "<td colspan='4' class='text-center'>Transaksi tidak di temukan!</td>";
+          tbody += "</tr>";
+      }
+      
+      $("tbody").html(tbody);
+
+    }).fail(function(res) {
+      console.log('Errors');
+      console.log(res);
+    });
+  }
+
+  function ajaxSetup() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });    
+  }
 </script>
 @endsection
