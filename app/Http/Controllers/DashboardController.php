@@ -8,27 +8,62 @@ use App\Models\DataBookingTempat;
 use App\Models\DataBookingRumah;
 use App\Models\User;
 
+use Auth;
+
 class DashboardController extends Controller
 {
 
     public function index()
     {
-        $jumlah_user = User::where('level', 'pelanggan')->count();
-        $jumlah_booking_di_tempat = DataBookingTempat::count();
 
-        $dbk = DataBookingTempat::where('status','!=',2)->count();
-        $dbr = DataBookingRumah::where('status_booking',null)->count();
+        switch (Auth::user()->level) {
+            case 'admin':
+                $jumlah_user = User::where('level', 'pelanggan')->count();
+                $jumlah_booking_di_tempat = DataBookingTempat::count();
 
-        $dbks = DataBookingTempat::where('status',2)->count();
-        $dbrs = DataBookingRumah::where('status_booking', 'selesai')->count();
-        $selesai = $dbks + $dbrs;
+                $dbk = DataBookingTempat::where('status','!=',2)->count();
+                $dbr = DataBookingRumah::where('status_booking',null)->count();
 
-        $data = [
-            'jumlah_user' => $jumlah_user,
-            'antrian_di_tempat' => $dbk,
-            'antrian_ke_rumah' => $dbr,
-            'selesai' => $selesai
-        ];
+                $dbks = DataBookingTempat::where('status',2)->count();
+                $dbrs = DataBookingRumah::where('status_booking', 'selesai')->count();
+                $selesai = $dbks + $dbrs;
+
+                $data = [
+                    'jumlah_user' => $jumlah_user,
+                    'antrian_di_tempat' => $dbk,
+                    'antrian_ke_rumah' => $dbr,
+                    'selesai' => $selesai
+                ];
+                break;
+            case 'kapster':
+
+                $jumlah_booking_di_tempat = DataBookingTempat::count();
+
+                $orderan_menunggu = DataBookingRumah::where('kapster', Auth::user()->id)->where('status_booking',null)->count();
+                $orderan_di_tolak = DataBookingRumah::where('kapster', Auth::user()->id)->where('status_booking','tolak')->count();
+                $selesai = DataBookingRumah::where('kapster', Auth::user()->id)->where('status_booking','selesai')->count();
+
+                $data = [
+                    'orderan_menunggu' => $orderan_menunggu,
+                    'orderan_di_tolak' => $orderan_di_tolak,
+                    'selesai' => $selesai
+                ];
+                break;
+            case 'pelanggan':
+                $jumlah_booking_ke_rumah = DataBookingRumah::where('users_id', Auth::user()->id)->count();
+                $jumlah_booking_di_tempat = DataBookingTempat::where('users_id', Auth::user()->id)->count();
+
+                $data = [
+                    'jumlah_booking_ke_rumah' => $jumlah_booking_ke_rumah,
+                    'jumlah_booking_di_tempat' => $jumlah_booking_di_tempat
+                ];
+                break;
+            
+            default:
+                // code...
+                break;
+        }
+
         return view('admin.dashboard', ['data' => $data]);
     }
 

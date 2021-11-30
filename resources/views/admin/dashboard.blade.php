@@ -33,6 +33,7 @@
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="row">
+              @if(Auth::user()->level == 'admin')
                 <div class="col-xs-6">
                     <div class="box p-a">
                       <div class="pull-left m-r">
@@ -81,6 +82,66 @@
                       </div>
                     </div>
                 </div>
+              @elseif(Auth::user()->level == 'kapster')
+                <div class="col-xs-6">
+                    <div class="box p-a">
+                      <div class="pull-left m-r">
+                        <i class="fa fa-group text-2x text-danger m-y-sm"></i>
+                      </div>
+                      <div class="clear">
+                        <div class="text-muted">Orderan Menunggu</div>
+                        <h4 class="m-a-0 text-md _600">{{ $data['orderan_menunggu'] }}</h4>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="box p-a">
+                      <div class="pull-left m-r">
+                        <i class="fa fa-ban text-2x text-info m-y-sm"></i>
+                      </div>
+                      <div class="clear">
+                        <div class="text-muted">Orderan di Tolak</div>
+                        <h4 class="m-a-0 text-md _600"><a href>{{ $data['orderan_di_tolak'] }}</a></h4>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="box p-a">
+                      <div class="pull-left m-r">
+                    <i class="fa fa-check text-2x text-accent m-y-sm">&#xe0c8;
+                      <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span>
+                    </i>
+                      </div>
+                      <div class="clear">
+                        <div class="text-muted">Selesai</div>
+                        <h4 class="m-a-0 text-md _600"><a href>{{ $data['selesai'] }}</a></h4>
+                      </div>
+                    </div>
+                </div>
+              @elseif(Auth::user()->level == 'pelanggan')
+                <div class="col-xs-6">
+                    <div class="box p-a">
+                      <div class="pull-left m-r">
+                        <i class="fa fa-user text-2x text-danger m-y-sm"></i>
+                      </div>
+                      <div class="clear">
+                        <div class="text-muted">Jumlah Booking ke Rumah</div>
+                        <h4 class="m-a-0 text-md _600">{{ $data['jumlah_booking_ke_rumah'] }}</h4>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="box p-a">
+                      <div class="pull-left m-r">
+                        <i class="fa fa-cut text-2x text-info m-y-sm"></i>
+                      </div>
+                      <div class="clear">
+                        <div class="text-muted">Jumlah Booking di Tempat</div>
+                        <h4 class="m-a-0 text-md _600"><a href>{{ $data['jumlah_booking_di_tempat'] }}</a></h4>
+                      </div>
+                    </div>
+                </div>
+              @endif
 
         <div class="col-sm-12 col-md-12 col-xl-12">
             
