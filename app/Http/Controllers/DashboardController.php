@@ -18,7 +18,10 @@ class DashboardController extends Controller
 
         $dbk = DataBookingTempat::where('status','!=',2)->count();
         $dbr = DataBookingRumah::where('status_booking',null)->count();
-        $selesai = $dbk + $dbr;
+
+        $dbks = DataBookingTempat::where('status',2)->count();
+        $dbrs = DataBookingRumah::where('status_booking', 'selesai')->count();
+        $selesai = $dbks + $dbrs;
 
         $data = [
             'jumlah_user' => $jumlah_user,
