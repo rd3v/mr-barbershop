@@ -70,11 +70,13 @@
           <tr>
             <th colspan="2"><p>Tanggal tersibuk</p></th>
             <td colspan="2">
-              @php
-                $temp_tgl = explode("-", $rata_rata_pelanggan_datang['tanggal']);
-                $tanggal = $temp_tgl[2]." / ".$temp_tgl[1]." / ".$temp_tgl[0];
-              @endphp
-              <p>{{ $tanggal }}, <b>Jumlah</b> {{ $rata_rata_pelanggan_datang['jumlah'] }} Orang</p>
+              @if($rata_rata_pelanggan_datang['jumlah'] > 0)
+                @php
+                  $temp_tgl = explode("-", $rata_rata_pelanggan_datang['tanggal']);
+                  $tanggal = $temp_tgl[2]." / ".$temp_tgl[1]." / ".$temp_tgl[0];
+                @endphp
+                <p>{{ $tanggal }}, <b>Jumlah</b> {{ $rata_rata_pelanggan_datang['jumlah'] }} Orang</p>
+              @endif
             </td>
             <td colspan="3"></td>
           </tr>

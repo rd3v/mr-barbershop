@@ -37,7 +37,7 @@ class DatabookingController extends Controller
                 break;
             case 'pelanggan':
                 $data_booking_tempat = DataBookingTempat::with('data_transaksi_layanan')->where('users_id', Auth::user()->id)->orderBy('id','desc')->get();
-                $data_booking_rumah = DataBookingRumah::with('pelanggan','layanan')->where('users_id', Auth::user()->id)->orderBy('id','desc')->get();            
+                $data_booking_rumah = DataBookingRumah::with('pelanggan','layanan')->where('users_id', Auth::user()->id)->orderBy('id','desc')->get();
                 $view = 'admin.data_booking.pelanggan_index';
                 break;
             

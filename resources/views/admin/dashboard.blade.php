@@ -83,64 +83,7 @@
                 </div>
 
         <div class="col-sm-12 col-md-12 col-xl-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3>Antrian</h3>
-                </div>
-                <div class="box-tool">
-                    <ul class="nav">
-                      <li class="nav-item inline dropdown">
-                        <a class="nav-link text-muted p-x-xs" data-toggle="dropdown">
-                          <i class="fa fa-ellipsis-v"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-scale pull-right">
-                          <a class="dropdown-item" href>New task</a>
-                          <a class="dropdown-item" href>Make all finished</a>
-                          <a class="dropdown-item" href>Make all unfinished</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item">Settings</a>
-                        </div>
-                      </li>
-                    </ul>
-                </div>
-                <div class="box-body">
-                    <div class="streamline b-l m-l">
-                        <div class="sl-item b-dark">
-                          <div class="sl-icon">
-                            <i class="fa fa-cut"></i>
-                          </div>
-                          <div class="sl-content">
-                            <div class="sl-date text-muted">8:30</div>
-                            <div>Pelanggan Andi sedang di cukur</div>
-                          </div>
-                        </div>
-                        <div class="sl-item b-info">
-                          <div class="sl-icon">
-                            <i class="fa fa-user"></i>
-                          </div>                          
-                          <div class="sl-content">
-                            <div class="sl-date text-muted">09:00</div>
-                            <div>Pelanggan Budi</div>
-                          </div>
-                        </div>
-                        <div class="sl-item b-warning">
-                          <div class="sl-icon">
-                            <i class="fa fa-user"></i>
-                          </div>                          
-                          <div class="sl-content">
-                            <div class="sl-date text-muted">10:00</div>
-                            <div>Pelanggan Reni</div>
-                          </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="box-footer">
-                    @if(Auth::user()->level == 'admin')
-                      <a href class="btn btn-sm btn-outline b-info rounded text-u-c pull-right">Tambah Antrian</a>
-                    @endif
-                    <a href style="visibility: hidden" class="btn btn-sm white text-u-c rounded"></a>
-                </div>
-            </div>
+            
         </div>
 
             </div>
