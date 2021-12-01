@@ -179,6 +179,15 @@ class DatabookingController extends Controller
                 }
 
                 if ($booking->save()) {
+
+                    $data_layanan_transaksi_data = [];
+                    $data_layanan_transaksi_data[] = [
+                        'booking_ke_rumah_id' => $booking->id,
+                        'layanan_id' => $request->layanan_id
+                    ];
+                                        
+                    DataTransaksiLayanan::insert($data_layanan_transaksi_data);
+
                     $kapster = User::find($request->kapster_id);
                     $message = "Booking di rumah telah di tambahkan!. Silahkan menunggu konfirmasi dari kapster ".ucwords($kapster->name).", terima kasih ";
 
@@ -431,9 +440,21 @@ class DatabookingController extends Controller
     public function finish_booking($id) {
         $booking_rumah = DataBookingRumah::find($id);
 
+        $jumlah_orang = $booking_rumah->jumlah_orang;
+
         $booking_rumah->status_booking = 'selesai';
         $booking_rumah->no_antrian = null;
         if ($booking_rumah->save()) {
+
+            $total = 0;
+            $dtl = DataTransaksiLayanan::where('booking_ke_rumah_id', $booking_rumah->id)->get();
+            foreach($dtl as $value) {
+                $total += $value->layanan->harga_layanan;
+            }
+            $data_transaksi = new DataTransaksi;
+            $data_transaksi->booking_rumah_id = $booking_rumah->id;
+            $data_transaksi->total = $total * $jumlah_orang;
+            $data_transaksi->save();
     
             $telegramMessage = new TelegramMessage();
 
