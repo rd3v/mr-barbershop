@@ -254,7 +254,7 @@ var MODULE_CONFIG = {
 
     var round_hasil = Math.round(hasil);
 
-    var tingkat_intensitas_fasilitas_pelayanan = nilai / round_hasil;
+    var tingkat_intensitas_fasilitas_pelayanan = round_hasil/nilai ;
 
     $("span#p").html(tingkat_intensitas_fasilitas_pelayanan.toFixed(2));
     
@@ -265,7 +265,7 @@ var MODULE_CONFIG = {
 
     $("span#lq").html(lq);
 
-    var l = (parseFloat(lq) + parseFloat(tingkat_intensitas_fasilitas_pelayanan)).toFixed(2);
+    var l = (parseFloat(lq)).toFixed(2);
     $("span#l").html(l);
 
     var wq = (round_hasil / (nilai * (nilai - round_hasil))).toFixed(2);
