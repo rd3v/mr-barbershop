@@ -34,7 +34,7 @@
   <div class="box">
     <div class="box-header">
       <h2 style="display:inline"><b>Data Pelanggan</b></h2>
-      <a href="{{ url('/data-pelanggan/tambah') }}" class="btn btn-success btn-md" style="color: white;float: right">+Tambah</a>
+      <!-- <a href="{{ url('/data-pelanggan/tambah') }}" class="btn btn-success btn-md" style="color: white;float: right">+Tambah</a> -->
     </div>
     <br>
     <div class="table-responsive">
@@ -67,7 +67,7 @@
             <th>Email</th>
             <th>No. HP</th>
             <th>Jenis Kelamin</th>
-            <th>Aksi</th>
+            <!-- <th>Aksi</th> -->
           </tr>
         </thead>
         <?php
@@ -83,10 +83,10 @@
                 <td>{{ $value->email }}</td>
                 <td>{{ $value->no_hp }}</td>
                 <td>{{ $value->jenis_kelamin }}</td>
-                <td>
+                <!-- <td>
                   <a href="{{ route('edit-data-pelanggan',['id' => $value->id]) }}" class="btn btn-primary btn-sm" title="Edit" data-id="{{ $value->id }}"><i class="fa fa-edit"></i></a>
                   <button class="btn btn-danger btn-sm btn-hapus" title="Hapus" data-name="{{ $value->name }}" data-id="{{ $value->id }}"><i class="fa fa-trash"></i></button>
-                </td>
+                </td> -->
               </tr>
             @endforeach
           @endif

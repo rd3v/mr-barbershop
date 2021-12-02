@@ -16,6 +16,13 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+
+
+        <link rel="stylesheet" type="text/css" href="assets/vendor/animate/animate.css">
+        <link rel="stylesheet" type="text/css" href="assets/vendor/nice-select/css/nice-select.css">
+        <link rel="stylesheet" type="text/css" href="assets/vendor/owl-carousel/owl.carousel.css">
+
+
         <style type="text/css">
 #carousel {
 position: relative;
@@ -117,7 +124,7 @@ height: 30px;
     <body id="page-top">
             <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
                 <div class="container">
-                    <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="assets/img/navbar-logo.png" alt=""/></a>
+                    <a class="navbar-brand js-scroll-trigger" href="#page-top">Mr Barbershop</a>
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         Menu
                         <i class="fas fa-bars ml-1"></i>
@@ -145,14 +152,16 @@ height: 30px;
             <!-- Masthead-->
             <header class="masthead">
                 <div class="container">
+                    <div class="wow fadeInUp">
                     <div class="masthead-subheading">Welcome To Our MRB Hair Studio!</div>
                     <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
                     <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Selengkapnya</a>
+                    </div>
                 </div>
             </header>
             <!-- Services-->
             <section class="page-section" id="services">
-                <div class="container">
+                <div class="container wow fadeInUp">
                     <div class="text-center">
                         <h2 class="section-heading text-uppercase">Why Us</h2>
                         <h3 class="section-subheading text-muted">Mengapa memilih Mr Barbersop.</h3>
@@ -187,7 +196,7 @@ height: 30px;
             </section>
             <!-- Portfolio Grid-->
             <section class="page-section bg-dark" id="portfolio">
-                <div class="container">
+                <div class="container wow fadeInUp">
                     <div class="text-center">
                         <h2 class="section-heading text-uppercase text-white">Informasi</h2>
                         <h3 class="section-subheading text-muted">Informasi terbaru mengenai Mr Barbershop</h3>
@@ -237,7 +246,7 @@ height: 30px;
             </section>
             <!-- About-->
             <section class="page-section" id="about">
-                <div class="container">
+                <div class="container wow fadeInUp">
                     <div class="text-center">
                         <h2 class="section-heading text-uppercase">Testimoni</h2>
                         <h3 class="section-subheading text-muted">Apa kata mereka mengenai Mr Barbersop.</h3>
@@ -247,7 +256,7 @@ height: 30px;
                             <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/1.jpg" alt="" /></div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4>Desember 2020</h4>
+                                    <h4>Desember 2021</h4>
                                     <h4 class="subheading">Fikratullah Nugraha  </h4>
                                 </div>
                                 <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
@@ -257,7 +266,7 @@ height: 30px;
                             <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/2.jpg" alt="" /></div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4>Maret 2021</h4>
+                                    <h4>Maret 2020</h4>
                                     <h4 class="subheading">Ainul Fikri</h4>
                                 </div>
                                 <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
@@ -267,8 +276,8 @@ height: 30px;
                             <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/3.jpg" alt="" /></div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4>December 2012</h4>
-                                    <h4 class="subheading">Transition to Full Service</h4>
+                                    <h4>Juni 2019</h4>
+                                    <h4 class="subheading">Didit Amanda</h4>
                                 </div>
                                 <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
                             </div>
@@ -277,8 +286,8 @@ height: 30px;
                             <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/4.jpg" alt="" /></div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
-                                    <h4>July 2014</h4>
-                                    <h4 class="subheading">Phase Two Expansion</h4>
+                                    <h4>Oktober 2018</h4>
+                                    <h4 class="subheading">Tyasno Hermawan</h4>
                                 </div>
                                 <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
                             </div>
@@ -299,7 +308,7 @@ height: 30px;
             </section>
             <!-- Team-->
             <section class="page-section bg-dark" id="team">
-                <div class="container">
+                <div class="container wow fadeInUp">
                     <div class="text-center">
                         <h2 class="section-heading text-uppercase text-light">Kapster</h2>
                         <h3 class="section-subheading text-muted">Kapster Mr Barbershop telah dibekali skill sehingga mampu memberikan potongan rambut secara baik dan profesional.</h3>
@@ -375,7 +384,7 @@ height: 30px;
             
             <!-- Contact-->
             <section class="page-section" id="contact">
-                <div class="container">
+                <div class="container wow fadeInUp">
                     <div class="text-center">
                         <h2 class="section-heading text-uppercase">Maps</h2>
                         <h3 class="section-subheading text-muted">Jl. Jend Sudirman No.128, Binturu, Wara Selatan, Kota Palopo, Sulawesi Selatan 91921.</h3>
@@ -405,186 +414,7 @@ height: 30px;
                 </div>
             </footer>
             <!-- Portfolio Modals-->
-            <!-- Modal 1-->
-            <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="close-modal" data-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <div class="modal-body">
-                                        <!-- Project Details Go Here-->
-                                        <h2 class="text-uppercase">Project Name</h2>
-                                        <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                        <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/01-full.jpg" alt="" />
-                                        <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                        <ul class="list-inline">
-                                            <li>Date: January 2020</li>
-                                            <li>Client: Threads</li>
-                                            <li>Category: Illustration</li>
-                                        </ul>
-                                        <button class="btn btn-primary" data-dismiss="modal" type="button">
-                                            <i class="fas fa-times mr-1"></i>
-                                            Close Project
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal 2-->
-            <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="close-modal" data-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <div class="modal-body">
-                                        <!-- Project Details Go Here-->
-                                        <h2 class="text-uppercase">Project Name</h2>
-                                        <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                        <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/02-full.jpg" alt="" />
-                                        <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                        <ul class="list-inline">
-                                            <li>Date: January 2020</li>
-                                            <li>Client: Explore</li>
-                                            <li>Category: Graphic Design</li>
-                                        </ul>
-                                        <button class="btn btn-primary" data-dismiss="modal" type="button">
-                                            <i class="fas fa-times mr-1"></i>
-                                            Close Project
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal 3-->
-            <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="close-modal" data-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <div class="modal-body">
-                                        <!-- Project Details Go Here-->
-                                        <h2 class="text-uppercase">Project Name</h2>
-                                        <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                        <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/03-full.jpg" alt="" />
-                                        <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                        <ul class="list-inline">
-                                            <li>Date: January 2020</li>
-                                            <li>Client: Finish</li>
-                                            <li>Category: Identity</li>
-                                        </ul>
-                                        <button class="btn btn-primary" data-dismiss="modal" type="button">
-                                            <i class="fas fa-times mr-1"></i>
-                                            Close Project
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal 4-->
-            <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="close-modal" data-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <div class="modal-body">
-                                        <!-- Project Details Go Here-->
-                                        <h2 class="text-uppercase">Project Name</h2>
-                                        <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                        <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/04-full.jpg" alt="" />
-                                        <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                        <ul class="list-inline">
-                                            <li>Date: January 2020</li>
-                                            <li>Client: Lines</li>
-                                            <li>Category: Branding</li>
-                                        </ul>
-                                        <button class="btn btn-primary" data-dismiss="modal" type="button">
-                                            <i class="fas fa-times mr-1"></i>
-                                            Close Project
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal 5-->
-            <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="close-modal" data-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <div class="modal-body">
-                                        <!-- Project Details Go Here-->
-                                        <h2 class="text-uppercase">Project Name</h2>
-                                        <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                        <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/05-full.jpg" alt="" />
-                                        <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                        <ul class="list-inline">
-                                            <li>Date: January 2020</li>
-                                            <li>Client: Southwest</li>
-                                            <li>Category: Website Design</li>
-                                        </ul>
-                                        <button class="btn btn-primary" data-dismiss="modal" type="button">
-                                            <i class="fas fa-times mr-1"></i>
-                                            Close Project
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal 6-->
-            <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="close-modal" data-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <div class="modal-body">
-                                        <!-- Project Details Go Here-->
-                                        <h2 class="text-uppercase">Project Name</h2>
-                                        <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                        <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/06-full.jpg" alt="" />
-                                        <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                        <ul class="list-inline">
-                                            <li>Date: January 2020</li>
-                                            <li>Client: Window</li>
-                                            <li>Category: Photography</li>
-                                        </ul>
-                                        <button class="btn btn-primary" data-dismiss="modal" type="button">
-                                            <i class="fas fa-times mr-1"></i>
-                                            Close Project
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <!-- Bootstrap core JS-->
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -595,8 +425,18 @@ height: 30px;
             <script src="assets/mail/contact_me.js"></script>
             <!-- Core theme JS-->
             <script src="js/scripts.js"></script>
-            <script src="//cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js" type="text
-/javascript"></script>
+            <script src="//cdn.jsdelivr.net/npm/jquery.marquee@1.6.0/jquery.marquee.min.js" type="text/javascript"></script>
+
+
+            <script src="assets/js/topbar-virtual.js"></script>
+            <script src="assets/js/bootstrap.bundle.min.js"></script>
+            <script src="assets/vendor/wow/wow.min.js"></script>
+            <script src="assets/vendor/owl-carousel/owl.carousel.min.js"></script>
+            <script src="assets/vendor/nice-select/js/jquery.nice-select.min.js"></script>
+            <script src="assets/vendor/isotope/isotope.pkgd.min.js"></script>
+
+
+
     <script>
 $(document).ready(function () {
     //rotation speed and timer
