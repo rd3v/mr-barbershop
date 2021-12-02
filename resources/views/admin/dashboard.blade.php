@@ -60,7 +60,7 @@
                     <div class="box p-a">
                       <div class="pull-left m-r">
                     <i class="material-icons text-2x text-accent m-y-sm">&#xe0c8;
-                      <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span>
+                      <!-- <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span> -->
                     </i>
                       </div>
                       <div class="clear">
@@ -73,7 +73,7 @@
                     <div class="box p-a">
                       <div class="pull-left m-r">
                     <i class="material-icons text-2x text-success m-y-sm">&#xe636;
-                      <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span>
+                      <!-- <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span> -->
                     </i>
                       </div>
                       <div class="clear">
@@ -109,7 +109,7 @@
                     <div class="box p-a">
                       <div class="pull-left m-r">
                     <i class="fa fa-check text-2x text-accent m-y-sm">&#xe0c8;
-                      <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span>
+                      <!-- <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span> -->
                     </i>
                       </div>
                       <div class="clear">

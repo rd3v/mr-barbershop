@@ -26,9 +26,9 @@
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="jenis_kelamin" value="{{ __('No. HP') }}" />
+                <x-jet-label for="jenis_kelamin" value="{{ __('Jenis Kelamin') }}" />
                 <select name="jenis_kelamin" id="jenis_kelamin" style="width: 100%" class="form-control" required>
-                    <option value="">== Pilih ==</option>
+                    <option value="">-- Pilih --</option>
                     <option value="laki - laki">Laki - laki</option>
                     <option value="perempuan">Perempuan</option>
                 </select>

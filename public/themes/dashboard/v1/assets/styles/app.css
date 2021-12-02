@@ -1088,7 +1088,7 @@ a.list-group-item {
 
 .progress-bar {
   display: inline-block;
-  float: left;
+  /* float: left; */
   height: 100%;
   border-radius: .25rem;
   text-align: center;
@@ -2748,8 +2748,8 @@ body {
 .ie .ie-show {
   display: block; }
 
-.nav a.waves-effect {
-  -webkit-mask-image: -webkit-radial-gradient(circle, #ffffff 100%, #000000 100%); }
+/* .nav a.waves-effect {
+  -webkit-mask-image: -webkit-radial-gradient(circle, #ffffff 100%, #000000 100%); } */
 
 .sortable-placeholder {
   list-style: none;
@@ -5638,7 +5638,7 @@ textarea.md-input {
     line-height: 1;
     margin-left: -20px;
     margin-top: 1px;
-    float: left;
+    /* float: left; */
     display: inline-block;
     vertical-align: middle;
     margin-right: 28px;

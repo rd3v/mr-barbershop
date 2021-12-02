@@ -29,14 +29,16 @@
 <!-- ############ LAYOUT START-->
 
   <!-- aside -->
-  <div id="aside" class="app-aside modal fade md nav-expand">
-    <div class="left navside indigo-900 dk" layout="column">
+  <div id="aside" class="app-aside modal fade folded md nav-expand ng-scope">
+    <div class="left navside blue dk" layout="column">
       <div class="navbar navbar-md no-radius">
         <!-- brand -->
         <a class="navbar-brand">
-            <div ui-include="{{ asset('themes/dashboard/v1/assets/images/logo.svg') }}"></div>
-            <img src="{{ asset('themes/dashboard/v1/assets/images/logo.png') }}" alt="." class="hide">
-            <span class="hidden-folded inline">{{ config('app.name', 'Laravel') }}</span>
+            <!-- <div ui-include="{{ asset('themes/dashboard/v1/assets/images/logo.svg') }}"></div> -->
+            <img src="{{ asset('themes/dashboard/v1/assets/images/logo.png') }}" alt="" class="">
+            <span class="hidden-folded inline v-m">{{ config('app.name', 'Laravel') }}<span class="text-xs text-muted _300 block m-t-xs tagline">Good Hair Everyday</span></span>
+           
+
         </a>
         <!-- / brand -->
       </div>
@@ -45,27 +47,30 @@
           
             <ul class="nav" ui-nav>
               <li class="nav-header hidden-folded">
-                <small class="text-muted">Main</small>
+                <small class="text-muted">MAIN</small>
               </li>
               
               <li id="dashboard">
                 <a href="{{ url('/dashboard') }}">
                   <span class="nav-icon">
-                    <i class="material-icons">&#xe3fc;
-                      <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span>
+                    <i class="material-icons">&#xe871;
+                      <!-- <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span> -->
                     </i>
                   </span>
                   <span class="nav-text">Dashboard</span>
                 </a>
               </li>
 
+              <li class="nav-header hidden-folded">
+                <small class="text-muted">DATA</small>
+              </li>
 
               @if(Auth::user()->level == 'admin')
                 <li id="data-kapster">
                   <a href="{{ url('/data-kapster') }}" >
                     <span class="nav-icon">
-                      <i class="material-icons">&#xe7ef;
-                        <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span>
+                      <i class="material-icons">&#xe7fd;
+                        <!-- <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span> -->
                       </i>
                     </span>
                     <span class="nav-text">Data Kapster</span>
@@ -78,7 +83,7 @@
                 <a href="{{ url('/data-pelanggan') }}">
                   <span class="nav-icon">
                     <i class="material-icons">&#xe7ef;
-                      <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span>
+                      <!-- <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span> -->
                     </i>
                   </span>
                   <span class="nav-text">Data Pelanggan</span>
@@ -91,7 +96,7 @@
                 <a href="{{ url('/data-layanan') }}" >
                   <span class="nav-icon">
                     <i class="material-icons">&#xe14e;
-                      <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span>
+                      <!-- <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span> -->
                     </i>
                   </span>
                   <span class="nav-text">Data Layanan</span>
@@ -103,19 +108,25 @@
                 <a href="{{ url('/data-booking') }}" >
                   <span class="nav-icon">
                     <i class="material-icons">&#xe636;
-                      <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span>
+                      
+                      <!-- <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span> -->
                     </i>
                   </span>
+                  
                   <span class="nav-text">Data Booking</span>
                 </a>
               </li>
           
+              <li class="nav-header hidden-folded">
+                <small class="text-muted">INFORMASI</small>
+              </li>
+
               @if(Auth::user()->level == 'admin')          
               <li id="data-informasi">
                 <a href="{{ url('/data-informasi') }}" >
                   <span class="nav-icon">
-                    <i class="material-icons">&#xe88f;
-                      <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span>
+                    <i class="material-icons">&#xe234;
+                      <!-- <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span> -->
                     </i>
                   </span>
                   <span class="nav-text">Data Informasi</span>
@@ -127,11 +138,11 @@
               <li id="data-laporan">
                 <a href="{{ url('/data-laporan') }}" >
                   <span class="nav-icon">
-                    <i class="material-icons">&#xe85d;
-                      <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span>
+                    <i class="material-icons">&#xe8b0;
+                      <!-- <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span> -->
                     </i>
                   </span>
-                  <span class="nav-text">Laporan</span>
+                  <span class="nav-text">Laporan Transaksi</span>
                 </a>
               </li>
 
@@ -139,7 +150,7 @@
                 <a href="{{ url('/perhitungan-waiting-line') }}" >
                   <span class="nav-icon">
                     <i class="material-icons">&#xe85d;
-                      <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span>
+                      <!-- <span ui-include="{{ asset('themes/dashboard/v1/assets/images/i_0.svg') }}"></span> -->
                     </i>
                   </span>
                   <span class="nav-text">Perhitungan Waiting Line</span>
@@ -157,7 +168,7 @@
   </div>
   <!-- / aside -->
   
-  <!-- content -->
+  <!-- content -->  
   <div id="content" class="app-content box-shadow-z0" role="main">
     <div class="app-header white box-shadow navbar-md">
         <div class="navbar">
@@ -214,17 +225,7 @@
             <div class="collapse navbar-toggleable-sm" id="collapse">
               <div ui-include="'../views/blocks/navbar.form.right.html'"></div>
               <!-- link and dropdown -->
-              <ul class="nav navbar-nav">
-                @if(Auth::user()->level == 'admin')
-                  <li class="nav-item dropdown">
-                    <a class="nav-link" href data-toggle="dropdown">
-                      <i class="fa fa-fw fa-plus text-muted"></i>
-                      <span>Tambah Antrian</span>
-                    </a>
-                    <div ui-include="'../views/blocks/dropdown.new.html'"></div>
-                  </li>
-                @endif
-              </ul>
+             
               <!-- / -->
             </div>
             <!-- / navbar collapse -->
