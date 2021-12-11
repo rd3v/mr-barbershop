@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 
 use Hash;
+use Auth;
 
 class DatakapsterController extends Controller
 {
@@ -135,7 +136,12 @@ class DatakapsterController extends Controller
 
         if ($kapster->save()) {
             $message = "Kapster ".ucwords($request->name)." telah di update!";
-            return redirect('/data-kapster')->with(['update' => $message]);            
+
+            if (Auth::user()->level == 'kapster') {
+                return back()->with(['success' => 'Profil telah di update!']);
+            } elseif(Auth::user()->level == 'admin') {
+                return redirect('/data-kapster')->with(['update' => $message]);            
+            }
         } else {
             $message = "Gagal mengupdate kapster";
             return back()->with(['errors' => $message]);            

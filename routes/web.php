@@ -7,7 +7,8 @@ Route::get('', [\App\Http\Controllers\WelcomeController::class, 'index']);
 Route::middleware(['auth:sanctum', 'verified'])->group(function() {
 
     Route::get('/dashboard',[\App\Http\Controllers\DashboardController::class,'index'])->name('dashboard');
-    Route::get('/my-profile',[\App\Http\Controllers\DashboardController::class,'profile'])->name('my-profile');
+    Route::get('/my-profile',[\App\Http\Controllers\ProfileController::class,'profile'])->name('my-profile');
+    Route::put('/update-my-pwd/{id}',[\App\Http\Controllers\ProfileController::class,'update_pwd'])->name('profile.update');
 
     Route::get('/data-pelanggan',[\App\Http\Controllers\DataPelanggan::class, 'index'])->name('data-pelanggan');
     Route::get('/data-pelanggan/tambah',[\App\Http\Controllers\DataPelanggan::class, 'create'])->name('tambah-data-pelanggan');
