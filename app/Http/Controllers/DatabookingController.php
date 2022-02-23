@@ -399,12 +399,14 @@ class DatabookingController extends Controller
     
             $telegramMessage = new TelegramMessage();
 
-            $telegram_kapster = [
-                'chat_id' => $booking_rumah->pelanggan->telegram_chat_id,
-                'text' => "Halo ".ucwords($booking_rumah->pelanggan->name).",\nkapster ".ucwords(Auth::user()->name)." tidak dapat menerima permintaan booking anda, silahkan mencoba pilih kapster lain. terima kasih",
-            ];
-            
-            $telegramMessage->sendMessage($telegram_kapster);
+            if($booking_rumah->pelanggan->telegram_chat_id != null) {
+                $telegram_kapster = [
+                    'chat_id' => $booking_rumah->pelanggan->telegram_chat_id,
+                    'text' => "Halo ".ucwords($booking_rumah->pelanggan->name).",\nkapster ".ucwords(Auth::user()->name)." tidak dapat menerima permintaan booking anda, silahkan mencoba pilih kapster lain. terima kasih",
+                ];
+                
+                $telegramMessage->sendMessage($telegram_kapster);
+            }
 
             return back();
 
@@ -423,12 +425,14 @@ class DatabookingController extends Controller
     
             $telegramMessage = new TelegramMessage();
 
-            $telegram_kapster = [
-                'chat_id' => $booking_rumah->pelanggan->telegram_chat_id,
-                'text' => "Halo ".ucwords($booking_rumah->pelanggan->name).",\nkapster ".ucwords(Auth::user()->name)." telah menerima permintaan layanan anda dan segera menuju ke rumah anda.\nHarap menunggu, terima kasih",
-            ];
-            
-            $telegramMessage->sendMessage($telegram_kapster);
+            if ($booking_rumah->pelanggan->telegram_chat_id != null) {
+                $telegram_kapster = [
+                    'chat_id' => $booking_rumah->pelanggan->telegram_chat_id,
+                    'text' => "Halo ".ucwords($booking_rumah->pelanggan->name).",\nkapster ".ucwords(Auth::user()->name)." telah menerima permintaan layanan anda dan segera menuju ke rumah anda.\nHarap menunggu, terima kasih",
+                ];
+                
+                $telegramMessage->sendMessage($telegram_kapster);
+            }
 
             return back()->with('success', 'Anda telah menerima order booking, harap segera menuju ke rumah pelanggan, terima kasih');
 
@@ -458,12 +462,15 @@ class DatabookingController extends Controller
     
             $telegramMessage = new TelegramMessage();
 
-            $telegram_kapster = [
-                'chat_id' => $booking_rumah->pelanggan->telegram_chat_id,
-                'text' => "Halo ".ucwords($booking_rumah->pelanggan->name).",\nkapster ".ucwords(Auth::user()->name)." telah selesai melayani anda, semoga anda suka dengan pelayanan kapster ".ucwords(Auth::user()->name).". terima kasih",
-            ];
-            
-            $telegramMessage->sendMessage($telegram_kapster);
+            if ($booking_rumah->pelanggan->telegram_chat_id != null) {
+                $telegram_kapster = [
+                    'chat_id' => $booking_rumah->pelanggan->telegram_chat_id,
+                    'text' => "Halo ".ucwords($booking_rumah->pelanggan->name).",\nkapster ".ucwords(Auth::user()->name)." telah selesai melayani anda, semoga anda suka dengan pelayanan kapster ".ucwords(Auth::user()->name).". terima kasih",
+                ];
+                
+                $telegramMessage->sendMessage($telegram_kapster);
+            }
+
 
             return back();
 
