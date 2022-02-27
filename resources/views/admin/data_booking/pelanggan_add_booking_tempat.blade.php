@@ -46,7 +46,7 @@
             <div class="form-group row">
               <label for="jenis_layanan" class="col-sm-2 form-control-label">Jenis Layanan</label>
               <div class="col-sm-10">
-                  <select name="layanan_id[]" id="layanan_id" class="form-control" size="8">
+                  <select name="layanan_id[]" id="layanan_id" class="form-control" size="8" multiple>
                     @foreach($data['layanan'] as $value)
                       <option value="{{ $value->id }}">{{ $value->jenis_layanan }} (Rp{{ number_format($value->harga_layanan) }})</option>
                     @endforeach                    
@@ -70,7 +70,7 @@
 
             <div class="form-group row m-t-md">
               <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn success">Tambah</button>
+                <button type="submit" class="btn success" disabled>Tambah</button>
                 <a href="{{ url('/data-booking') }}" type="button" class="btn danger">Batal</a>
               </div>
             </div>
@@ -121,6 +121,11 @@
   $(document).ready(function() {
     $("li#data-booking").addClass('active');
   });
+
+  $("select#layanan_id").click(function() {
+    $("button[type=submit]").attr('disabled', false);
+  });
+
 
 
   function get_member(member) {
